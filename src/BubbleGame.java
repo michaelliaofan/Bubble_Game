@@ -46,6 +46,12 @@ public class BubbleGame extends JPanel {
         //TODO: Write a for loop that loops through fixedBalls and draws all of them
     }
 
+    //Balls move one row down
+    //Out of bounds = fail
+    private void shiftBalls() {
+
+    }
+
     //Main - no need to change
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");

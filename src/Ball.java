@@ -55,6 +55,7 @@ public class Ball {
 
     //Updates the Ball's direction if the Ball moves off screen
     private void updateDirection() {
+
     }
 
     public void update() {
@@ -62,11 +63,17 @@ public class Ball {
         updateDirection();
     }
 
-    //Getters - no need to change
+    //Getters/setters - no need to change
     public Color getColor() {
         return color;
     }
+    public void setColor(Color color) {
+        this.color = color;
+    }
     public Point getPosition() {
         return position;
+    }
+    public void setPosition(Point position) {
+        this.position = position;
     }
 }
