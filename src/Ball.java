@@ -3,8 +3,8 @@ import java.awt.*;
 public class Ball {
     public static final int SIZE = 50;
 
-    private Color color;
     private Point position;
+    private Color color;
 
     //Current angle of Ball's motion in degrees; EAST is 0 degrees; counter-clockwise rotation is positive rotation
     private int direction;
@@ -14,8 +14,8 @@ public class Ball {
 
     public Ball(Point position, Color color) {
         this.position = position;
-
         this.color = color;
+        this.speed = 10;
     }
 
     //TODO: If a new Ball is created with no color parameter, make the Ball a random color (Red, Green, Blue)
@@ -24,6 +24,8 @@ public class Ball {
 
         //Randomize this color!
         this.color = Color.BLACK;
+
+        this.speed = 10;
     }
 
     //TODO: Draws a circle centered at the Ball's position, with the Ball's color. Radius = size/2
@@ -38,7 +40,14 @@ public class Ball {
 
     //TODO: Update the Ball's position based on its speed and direction (need some trig...ANTHONY)
     public void updatePosition() {
-        this.position = new Point();
+        //dx and dy are the changes in x and y
+        //Math.cos() and Math.sin() are a thing -- THEY TAKE RADIANS!!!
+        //YOU NEED TO USE Math.toRadians() to turn a degree measurement into radians
+        int dx = 0;
+        int dy = 0;
+
+        //Moves the current position by the calculated changes, dx and dy
+        this.position.translate(dx, dy);
     }
 
     //Getters - no need to change
