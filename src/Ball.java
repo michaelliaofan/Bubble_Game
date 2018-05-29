@@ -12,23 +12,26 @@ public class Ball {
     //Speed of Ball
     private int speed;
 
-    public Ball(Point position, Color color) {
+    public Ball(Point position, Color color, int direction) {
         this.position = position;
         this.color = color;
+
         this.speed = 10;
+        this.direction = direction;
     }
 
     //TODO: If a new Ball is created with no color parameter, make the Ball a random color (Red, Green, Blue)
-    public Ball(Point position) {
+    public Ball(Point position, int direction) {
         this.position = position;
 
-        //Randomize this color!
-        this.color = Color.BLACK;
+        //Randomize this color! (only red, green, or blue for now)
+        this.color = Color.RED;
 
         this.speed = 10;
+        this.direction = direction;
     }
 
-    //TODO: Draws a circle centered at the Ball's position, with the Ball's color. Radius = size/2
+    //TODO: Draws a circle centered at the Ball's position, with the Ball's color. diameter = size
     public void draw(Graphics2D g2) {
         g2.drawOval(0, 0, 0, 0);
     }
@@ -39,7 +42,7 @@ public class Ball {
     }
 
     //TODO: Update the Ball's position based on its speed and direction (need some trig...ANTHONY)
-    public void updatePosition() {
+    private void updatePosition() {
         //dx and dy are the changes in x and y
         //Math.cos() and Math.sin() are a thing -- THEY TAKE RADIANS!!!
         //YOU NEED TO USE Math.toRadians() to turn a degree measurement into radians
@@ -48,6 +51,15 @@ public class Ball {
 
         //Moves the current position by the calculated changes, dx and dy
         this.position.translate(dx, dy);
+    }
+
+    //Updates the Ball's direction if the Ball moves off screen
+    private void updateDirection() {
+    }
+
+    public void update() {
+        updatePosition();
+        updateDirection();
     }
 
     //Getters - no need to change

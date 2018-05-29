@@ -1,5 +1,7 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
@@ -8,6 +10,33 @@ public class BubbleGame extends JPanel {
         setSize(w, h);
 
         fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
+
+        addMouseListener(new MouseListener() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseEntered(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseExited(MouseEvent e) {
+
+            }
+        });
     }
 
     public void paintComponent(Graphics g){
