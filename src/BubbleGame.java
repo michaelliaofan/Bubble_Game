@@ -2,13 +2,19 @@ import javax.swing.*;
 import java.awt.*;
 
 public class BubbleGame extends JPanel {
+    private Ball[][] fixedBalls;
+
     public BubbleGame(int w, int h) {
         setSize(w, h);
+
+        fixedBalls = new Ball[h/Ball.SIZE][w/Ball.SIZE];
     }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
+
+        //TODO: Write a for loop that loops through fixedBalls and draws all of them
     }
 
     //Main - no need to change
