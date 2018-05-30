@@ -26,6 +26,16 @@ public class Ball {
 
         //Randomize this color! (only red, green, or blue for now)
         this.color = Color.RED;
+        int num = (int)(Math.random() * 3);
+        if(num == 0){
+            this.color = Color.RED;
+        }
+        if(num == 1){
+            this.color = Color.GREEN;
+        }
+        if(num == 2){
+            this.color = Color.BLUE;
+        }
 
         this.speed = 10;
         this.direction = direction;
