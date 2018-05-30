@@ -48,6 +48,9 @@ public class Ball {
         //YOU NEED TO USE Math.toRadians() to turn a degree measurement into radians
         int dx = 0;
         int dy = 0;
+        dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
+        dy =(int)(Math.sin(Math.toRadians(direction))* speed);
+
 
         //Moves the current position by the calculated changes, dx and dy
         this.position.translate(dx, dy);
