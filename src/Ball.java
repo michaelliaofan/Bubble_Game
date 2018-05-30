@@ -33,7 +33,8 @@ public class Ball {
 
     //TODO: Draws a circle centered at the Ball's position, with the Ball's color. diameter = size
     public void draw(Graphics2D g2) {
-        g2.drawOval(0, 0, 0, 0);
+        g2.setColor(color);
+        g2.fillOval((int)position.getX(),(int)position.getY(), SIZE, SIZE);
     }
 
     //TODO: Returns a square centered at the Ball's position, with side length = size
