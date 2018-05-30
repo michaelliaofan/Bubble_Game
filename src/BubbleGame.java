@@ -5,4 +5,7 @@ public class BubbleGame {
         System.out.println("Hi its Yana!");
 
     }
+    public void method(){
+        //YANA was here.
+    }
 }
