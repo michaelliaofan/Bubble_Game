@@ -36,12 +36,11 @@ public class Ball {
         g2.drawOval(0, 0, 0, 0);
     }
 
-    //TODO: Returns a square centered at the Ball's position, with side length = size
     public Rectangle getBoundingRectangle() {
-        return new Rectangle();
+         return new Rectangle((int)(position.getX() - SIZE/2), (int)(position.getY()-SIZE/2), SIZE, SIZE);
     }
 
-    //TODO: Update the Ball's position based on its speed and direction (need some trig...ANTHONY)
+
     private void updatePosition() {
         //dx and dy are the changes in x and y
         //Math.cos() and Math.sin() are a thing -- THEY TAKE RADIANS!!!
