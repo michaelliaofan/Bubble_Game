@@ -68,6 +68,7 @@ public class BubbleGame extends JPanel {
         Graphics2D g2 = (Graphics2D)g;
 
         //TODO: Write a for loop that loops through fixedBalls and draws all of them
+        //TODO: Draw nextBall;
     }
 
     //Balls move one row down
