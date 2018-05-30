@@ -46,11 +46,8 @@ public class Ball {
         //dx and dy are the changes in x and y
         //Math.cos() and Math.sin() are a thing -- THEY TAKE RADIANS!!!
         //YOU NEED TO USE Math.toRadians() to turn a degree measurement into radians
-        int dx = 0;
-        int dy = 0;
-        dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
-        dy =(int)(Math.sin(Math.toRadians(direction))* speed);
-
+        int dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
+        int dy = (int)(Math.sin(Math.toRadians(direction))* speed);
 
         //Moves the current position by the calculated changes, dx and dy
         this.position.translate(dx, dy);
