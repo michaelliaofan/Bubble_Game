@@ -1,10 +1,15 @@
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
+    private Ball nextBall;
+
+    Timer timer;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
@@ -24,7 +29,7 @@ public class BubbleGame extends JPanel {
 
                 int direction = (int)Math.toDegrees(Math.atan(dy/dx));
 
-                Ball nextBall = new Ball(initPos, direction);
+                nextBall = new Ball(initPos, direction);
             }
 
             @Override
@@ -45,6 +50,15 @@ public class BubbleGame extends JPanel {
             @Override
             public void mouseExited(MouseEvent e) {
 
+            }
+        });
+
+        timer = new Timer(1000, new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+
+
+                repaint();
             }
         });
     }
