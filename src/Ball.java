@@ -39,6 +39,7 @@ public class Ball {
 
         this.speed = 10;
         this.direction = direction;
+        //test
     }
 
     //TODO: Draws a circle centered at the Ball's position, with the Ball's color. diameter = size
