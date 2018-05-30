@@ -26,9 +26,20 @@ public class Ball {
 
         //Randomize this color! (only red, green, or blue for now)
         this.color = Color.RED;
+        int num = (int)(Math.random() * 3);
+        if(num == 0){
+            this.color = Color.RED;
+        }
+        if(num == 1){
+            this.color = Color.GREEN;
+        }
+        if(num == 2){
+            this.color = Color.BLUE;
+        }
 
         this.speed = 10;
         this.direction = direction;
+        //test
     }
 
     //TODO: Draws a circle centered at the Ball's position, with the Ball's color. diameter = size
@@ -37,21 +48,17 @@ public class Ball {
         g2.fillOval((int)position.getX(),(int)position.getY(), SIZE, SIZE);
     }
 
-    //TODO: Returns a square centered at the Ball's position, with side length = size
     public Rectangle getBoundingRectangle() {
-        return new Rectangle();
+         return new Rectangle((int)(position.getX() - SIZE/2), (int)(position.getY()-SIZE/2), SIZE, SIZE);
     }
 
-    //TODO: Update the Ball's position based on its speed and direction (need some trig...ANTHONY)
+
     private void updatePosition() {
         //dx and dy are the changes in x and y
         //Math.cos() and Math.sin() are a thing -- THEY TAKE RADIANS!!!
         //YOU NEED TO USE Math.toRadians() to turn a degree measurement into radians
-        int dx = 0;
-        int dy = 0;
-        dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
-        dy =(int)(Math.sin(Math.toRadians(direction))* speed);
-
+        int dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
+        int dy = (int)(Math.sin(Math.toRadians(direction))* speed);
 
         //Moves the current position by the calculated changes, dx and dy
         this.position.translate(dx, dy);
