@@ -9,7 +9,7 @@ public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
     private Ball nextBall;
 
-    Timer timer;
+    private Timer timer;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
