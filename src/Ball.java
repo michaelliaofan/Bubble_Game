@@ -49,7 +49,7 @@ public class Ball {
 
     //Updates the Ball's direction if the Ball moves off screen
     private void updateDirection(int width, int height) {
-        if(position.x <= 0  || position.x + SIZE >= width) {
+        if(position.x<= 0  || position.x + SIZE >= width) {
             dx = - dx;
         } else if(position.y + SIZE >= height || position.y <= 0) {
             dy = - dy;
