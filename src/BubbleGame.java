@@ -116,6 +116,9 @@ public class BubbleGame extends JPanel {
     private void shiftBalls() {
 
     }
+    //public int ShiftDownCounter(){
+
+   // }
 
     //Main - no need to change
     public static void main(String[] args) {
