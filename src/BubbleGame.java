@@ -24,13 +24,21 @@ public class BubbleGame extends JPanel {
         }
 
 
-
-
         nextBall = new Ball(new Point(300, 300), 2, 4);
 
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
                 Point initPos = new Point(w/2, h-24 - Ball.SIZE);
 
                 int mouseX = e.getX();
@@ -51,16 +59,6 @@ public class BubbleGame extends JPanel {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
             public void mouseEntered(MouseEvent e) {
 
             }
@@ -74,11 +72,12 @@ public class BubbleGame extends JPanel {
         timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(nextBall != null)
                 nextBall.update(w, h);
 
                 for (int i = 0; i < fixedBalls.length ; i++) {
                     for (int j = 0; j < fixedBalls[0].length; j++) {
-                        if(fixedBalls[i][j]!=null){
+                        if(fixedBalls[i][j]!=null && nextBall != null){
                             if(nextBall.getBoundingRectangle().intersects(fixedBalls[i][j].getBoundingRectangle())) {
                                 int r = (int)nextBall.getPosition().getY()/Ball.SIZE;
                                 int c = (int)nextBall.getPosition().getX()/Ball.SIZE;
