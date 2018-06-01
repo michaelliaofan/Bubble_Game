@@ -80,7 +80,7 @@ public class BubbleGame extends JPanel {
 //
 //                            }
 
-                            if(nextBall.distanceTo(fixedBalls[r][c]) <= 50) {
+                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
                                 int r1 = (int)nextBall.getPosition().getY()/Ball.SIZE;
                                 int c1 = (int)nextBall.getPosition().getX()/Ball.SIZE;
                                 fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
