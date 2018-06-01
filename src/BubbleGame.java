@@ -52,7 +52,7 @@ public class BubbleGame extends JPanel {
 
             }
         });
-
+//comment
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
