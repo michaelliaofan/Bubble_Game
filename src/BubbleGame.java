@@ -16,20 +16,22 @@ public class BubbleGame extends JPanel {
 
         fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
 
+        nextBall = new Ball(new Point(300, 300), 200);
+
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-                Point initPos = new Point(w/2, h-24 - Ball.SIZE);
-
-                int mouseX = e.getX();
-                int mouseY = e.getY();
-
-                int dx = mouseX - initPos.x;
-                int dy = mouseY - initPos.y;
-
-                int direction = (int)Math.toDegrees(Math.atan(dy/dx));
-
-                nextBall = new Ball(initPos, direction);
+//                Point initPos = new Point(w/2, h-24 - Ball.SIZE);
+//
+//                int mouseX = e.getX();
+//                int mouseY = e.getY();
+//
+//                int dx = mouseX - initPos.x;
+//                int dy = mouseY - initPos.y;
+//
+//                int direction = (int)Math.toDegrees(Math.atan(dy/dx));
+//
+//                nextBall = new Ball(initPos, direction);
             }
 
             @Override
@@ -53,7 +55,7 @@ public class BubbleGame extends JPanel {
             }
         });
 
-        timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
                 nextBall.update(w, h);
@@ -61,6 +63,8 @@ public class BubbleGame extends JPanel {
                 repaint();
             }
         });
+
+        timer.start();
     }
 
     public void paintComponent(Graphics g){
@@ -69,11 +73,15 @@ public class BubbleGame extends JPanel {
 
         for(int i = 0; i < fixedBalls.length; i++) {
             for(int j = 0; j < fixedBalls[0].length; j++) {
-                fixedBalls[i][j].draw(g2);
+                if(fixedBalls[i][j] != null) {
+                    fixedBalls[i][j].draw(g2);
+                }
             }
         }
 
-        nextBall.draw(g2);
+        if(nextBall != null) {
+            nextBall.draw(g2);
+        }
     }
 
     //Balls move one row down
