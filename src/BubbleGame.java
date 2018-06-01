@@ -79,8 +79,13 @@ public class BubbleGame extends JPanel {
                 for (int i = 0; i < fixedBalls.length ; i++) {
                     for (int j = 0; j < fixedBalls[0].length; j++) {
                         if(fixedBalls[i][j]!=null){
-                        if(nextBall.getBoundingRectangle().intersects(fixedBalls[i][j].getBoundingRectangle())) {
-                        }
+                            if(nextBall.getBoundingRectangle().intersects(fixedBalls[i][j].getBoundingRectangle())) {
+                                int r = (int)nextBall.getPosition().getY()/Ball.SIZE;
+                                int c = (int)nextBall.getPosition().getX()/Ball.SIZE;
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0,0);
+                                nextBall = null;
+
+                            }
                         }
 
                     }
