@@ -118,11 +118,15 @@ public class BubbleGame extends JPanel {
     //Balls move one row down
     //Out of bounds = fail
     private void shiftBalls() {
+        //if(ShiftDownCounter() == 0){
 
     }
-    //public int ShiftDownCounter(){
+    //public int ShiftCounter(){
 
    // }
+
+
+
 
     //Main - no need to change
     public static void main(String[] args) {
