@@ -56,7 +56,7 @@ public class BubbleGame extends JPanel {
         timer = new Timer(1000, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                nextBall.update(w, h);
 
                 repaint();
             }
@@ -67,17 +67,13 @@ public class BubbleGame extends JPanel {
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
 
-        for (int i = 0; i < fixedBalls.length ; i++) {
-            for (int j = 0; j < fixedBalls[0].length ; j++) {
+        for(int i = 0; i < fixedBalls.length; i++) {
+            for(int j = 0; j < fixedBalls[0].length; j++) {
                 fixedBalls[i][j].draw(g2);
             }
-
         }
 
         nextBall.draw(g2);
-
-        //TODO: Write a for loop that loops through fixedBalls and draws all of them
-        //TODO: Draw nextBall;
     }
 
     //Balls move one row down
