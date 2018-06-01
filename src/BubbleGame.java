@@ -15,6 +15,16 @@ public class BubbleGame extends JPanel {
         setSize(w, h);
 
         fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
+        for (int r = 0; r < 3; r++) {
+            for (int c = 0; c < fixedBalls[0].length; c++) {
+                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+
+            }
+
+        }
+
+
+
 
         nextBall = new Ball(new Point(300, 300), 2, 4);
 

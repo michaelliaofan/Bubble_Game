@@ -20,7 +20,7 @@ public class Ball {
         this.position = position;
 
         //Randomize this color! (only red, green, or blue for now)
-        this.color = Color.RED;
+        //this.color = Color.RED;
         int num = (int)(Math.random() * 3);
         if(num == 0) {
             this.color = Color.RED;
