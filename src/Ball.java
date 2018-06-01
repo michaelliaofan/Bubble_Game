@@ -6,21 +6,17 @@ public class Ball {
     private Point position;
     private Color color;
 
-    //Current angle of Ball's motion in degrees; EAST is 0 degrees; counter-clockwise rotation is positive rotation
-    private int direction;
+    private int dx, dy;
 
-    //Speed of Ball
-    private int speed;
-
-    public Ball(Point position, Color color, int direction) {
+    public Ball(Point position, Color color, int dx, int dy) {
         this.position = position;
         this.color = color;
 
-        this.speed = 10;
-        this.direction = direction;
+        this.dx = dx;
+        this.dy = dy;
     }
 
-    public Ball(Point position, int direction) {
+    public Ball(Point position, int dx, int dy) {
         this.position = position;
 
         //Randomize this color! (only red, green, or blue for now)
@@ -34,8 +30,8 @@ public class Ball {
             this.color = Color.BLUE;
         }
 
-        this.speed = 10;
-        this.direction = direction;
+        this.dx = dx;
+        this.dy = dy;
     }
 
     public void draw(Graphics2D g2) {
@@ -48,18 +44,15 @@ public class Ball {
     }
 
     private void updatePosition() {
-        int dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
-        int dy = (int)(Math.sin(Math.toRadians(direction)) * speed);
-
         this.position.translate(dx, dy);
     }
 
     //Updates the Ball's direction if the Ball moves off screen
     private void updateDirection(int width, int height) {
         if(position.x <= 0  || position.x + SIZE >= width) {
-            direction = 180 - direction;
+            dx = - dx;
         } else if(position.y + SIZE >= height || position.y <= 0) {
-            direction = -direction;
+            dy = - dy;
         }
     }
 

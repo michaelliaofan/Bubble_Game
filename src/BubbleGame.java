@@ -16,7 +16,7 @@ public class BubbleGame extends JPanel {
 
         fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
 
-        nextBall = new Ball(new Point(300, 300), 200);
+        nextBall = new Ball(new Point(300, 300), 2, 4);
 
         addMouseListener(new MouseListener() {
             @Override
@@ -29,9 +29,15 @@ public class BubbleGame extends JPanel {
                 int dx = mouseX - initPos.x;
                 int dy = mouseY - initPos.y;
 
-                int direction = (int)Math.toDegrees(Math.atan(dy/dx));
+                int dxy = (int)Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
-                nextBall = new Ball(initPos, direction);
+                dx *= 10;
+                dy *= 10;
+
+                dx /= dxy;
+                dy /= dxy;
+
+                nextBall = new Ball(initPos, dx, dy);
             }
 
             @Override
