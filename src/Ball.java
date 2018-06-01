@@ -29,11 +29,9 @@ public class Ball {
         int num = (int)(Math.random() * 3);
         if(num == 0){
             this.color = Color.RED;
-        }
-        if(num == 1){
+        } else if(num == 1){
             this.color = Color.GREEN;
-        }
-        if(num == 2){
+        } else if(num == 2){
             this.color = Color.BLUE;
         }
 
@@ -42,36 +40,32 @@ public class Ball {
         //test
     }
 
-    //TODO: Draws a circle centered at the Ball's position, with the Ball's color. diameter = size
     public void draw(Graphics2D g2) {
         g2.setColor(color);
-        g2.fillOval((int)position.getX(),(int)position.getY(), SIZE, SIZE);
+        g2.fillOval((int)(position.getX() - SIZE/2), (int)(position.getY() - SIZE/2), SIZE, SIZE);
     }
 
     public Rectangle getBoundingRectangle() {
          return new Rectangle((int)(position.getX() - SIZE/2), (int)(position.getY()-SIZE/2), SIZE, SIZE);
     }
 
-
     private void updatePosition() {
-        //dx and dy are the changes in x and y
-        //Math.cos() and Math.sin() are a thing -- THEY TAKE RADIANS!!!
-        //YOU NEED TO USE Math.toRadians() to turn a degree measurement into radians
         int dx = (int)(Math.cos(Math.toRadians(direction)) * speed);
-        int dy = (int)(Math.sin(Math.toRadians(direction))* speed);
+        int dy = (int)(Math.sin(Math.toRadians(direction)) * speed);
 
-        //Moves the current position by the calculated changes, dx and dy
         this.position.translate(dx, dy);
     }
 
     //Updates the Ball's direction if the Ball moves off screen
-    private void updateDirection() {
+    private void updateDirection(int width, int height) {
+        if(position.x <= 0 || position.y <= 0 || position.x + SIZE >= width || position.y + SIZE >= height) {
 
+        }
     }
 
-    public void update() {
+    public void update(int width, int height) {
         updatePosition();
-        updateDirection();
+        updateDirection(width, height);
     }
 
     //Getters/setters - no need to change
