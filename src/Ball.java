@@ -10,17 +10,19 @@ public class Ball {
 
     public Ball(Point position, Color color, int dx, int dy) {
         this.position = position;
-        this.color = color;
 
         this.dx = dx;
         this.dy = dy;
+
+        this.color = color;
     }
 
     public Ball(Point position, int dx, int dy) {
         this.position = position;
 
-        //Randomize this color! (only red, green, or blue for now)
-        //this.color = Color.RED;
+        this.dx = dx;
+        this.dy = dy;
+
         int num = (int)(Math.random() * 3);
         if(num == 0) {
             this.color = Color.RED;
@@ -29,9 +31,6 @@ public class Ball {
         } else if(num == 2) {
             this.color = Color.BLUE;
         }
-
-        this.dx = dx;
-        this.dy = dy;
     }
 
     public void draw(Graphics2D g2) {
@@ -39,23 +38,33 @@ public class Ball {
         g2.fillOval((int)(position.getX() - SIZE/2), (int)(position.getY() - SIZE/2), SIZE, SIZE);
     }
 
-    public Rectangle getBoundingRectangle() {
-         return new Rectangle((int)(position.getX() - SIZE/2), (int)(position.getY()-SIZE/2), SIZE, SIZE);
+//    public Rectangle getBoundingRectangle() {
+//         return new Rectangle((int)(position.getX() - SIZE/2), (int)(position.getY()-SIZE/2), SIZE, SIZE);
+//    }
+
+    //TODO: Calculate the distance between this Ball's center and another Ball's center
+    public double distanceTo(Ball other) {
+        //This ball's center is given by this.position
+        //Ball other's center is given by other.getPosition()
+
+        return 0;
     }
 
+    //Updates the Ball's position per frame
     private void updatePosition() {
         this.position.translate(dx, dy);
     }
 
     //Updates the Ball's direction if the Ball moves off screen
     private void updateDirection(int width, int height) {
-        if(position.x<= 0  || position.x + SIZE >= width) {
+        if(position.x<= 0 || position.x + SIZE >= width) {
             dx = - dx;
         } else if(position.y + SIZE >= height || position.y <= 0) {
             dy = - dy;
         }
     }
 
+    //Updates the Ball's direction and position
     public void update(int width, int height) {
         updatePosition();
         updateDirection(width, height);

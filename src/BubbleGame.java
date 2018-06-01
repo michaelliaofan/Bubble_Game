@@ -18,11 +18,8 @@ public class BubbleGame extends JPanel {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < fixedBalls[0].length; c++) {
                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
-
             }
-
         }
-
 
         nextBall = new Ball(new Point(300, 300), 2, 4);
 
@@ -41,13 +38,13 @@ public class BubbleGame extends JPanel {
             public void mouseReleased(MouseEvent e) {
                 Point initPos = new Point(w/2, h-24 - Ball.SIZE);
 
-                int mouseX = e.getX();
-                int mouseY = e.getY();
+                double mouseX = e.getX();
+                double mouseY = e.getY();
 
-                int dx = mouseX - initPos.x;
-                int dy = mouseY - initPos.y;
+                double dx = mouseX - initPos.x;
+                double dy = mouseY - initPos.y;
 
-                int dxy = (int)Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
                 dx *= 10;
                 dy *= 10;
@@ -55,7 +52,7 @@ public class BubbleGame extends JPanel {
                 dx /= dxy;
                 dy /= dxy;
 
-                nextBall = new Ball(initPos, dx, dy);
+                nextBall = new Ball(initPos, (int)dx, (int)dy);
             }
 
             @Override
@@ -72,23 +69,25 @@ public class BubbleGame extends JPanel {
         timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if(nextBall != null)
-                nextBall.update(w, h);
+                if(nextBall != null) {
+                    nextBall.update(w, h);
+                }
 
-                for (int i = 0; i < fixedBalls.length ; i++) {
-                    for (int j = 0; j < fixedBalls[0].length; j++) {
-                        if(fixedBalls[i][j]!=null && nextBall != null){
-                            if(nextBall.getBoundingRectangle().intersects(fixedBalls[i][j].getBoundingRectangle())) {
-                                int r = (int)nextBall.getPosition().getY()/Ball.SIZE;
-                                int c = (int)nextBall.getPosition().getX()/Ball.SIZE;
-                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0,0);
+                for(int r = 0; r < fixedBalls.length ; r++) {
+                    for(int c = 0; c < fixedBalls[0].length; c++) {
+                        if(fixedBalls[r][c] != null && nextBall != null) {
+//                            if(nextBall.getBoundingRectangle().intersects(fixedBalls[r][c].getBoundingRectangle())) {
+//
+//                            }
+
+                            if(nextBall.distanceTo(fixedBalls[r][c]) <= 50) {
+                                int r1 = (int)nextBall.getPosition().getY()/Ball.SIZE;
+                                int c1 = (int)nextBall.getPosition().getX()/Ball.SIZE;
+                                fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
                                 nextBall = null;
-
                             }
                         }
-
                     }
-
                 }
 
                 repaint();
@@ -124,9 +123,6 @@ public class BubbleGame extends JPanel {
     //public int ShiftCounter(){
 
    // }
-
-
-
 
     //Main - no need to change
     public static void main(String[] args) {
