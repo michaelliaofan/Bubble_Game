@@ -122,7 +122,7 @@ public class BubbleGame extends JPanel {
         //if(ShiftDownCounter() == 0){
 
     }
-    //public int ShiftDownCounter(){
+    //public int ShiftCounter(){
 
    // }
 
