@@ -73,6 +73,7 @@ public class BubbleGame extends JPanel {
                     nextBall.update(w, h);
                 }
 
+                //Checks for collisions
                 for(int r = 0; r < fixedBalls.length ; r++) {
                     for(int c = 0; c < fixedBalls[0].length; c++) {
                         if(fixedBalls[r][c] != null && nextBall != null) {
@@ -85,6 +86,8 @@ public class BubbleGame extends JPanel {
                                 int c1 = (int)nextBall.getPosition().getX()/Ball.SIZE;
                                 fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
                                 nextBall = null;
+
+                                removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
                             }
                         }
                     }
@@ -95,6 +98,11 @@ public class BubbleGame extends JPanel {
         });
 
         timer.start();
+    }
+
+    //TODO: Check the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
+    private void removeBalls(Color color, int r, int c) {
+
     }
 
     public void paintComponent(Graphics g){
