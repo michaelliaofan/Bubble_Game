@@ -18,10 +18,10 @@ public class BubbleGame extends JPanel {
         for (int r = 0; r < 3; r++) {
             for (int c = 0; c < fixedBalls[0].length; c++) {
                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+
             }
+
         }
-
-
 
 
         nextBall = new Ball(new Point(300, 300), 2, 4);
@@ -29,6 +29,16 @@ public class BubbleGame extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
                 Point initPos = new Point(w/2, h-24 - Ball.SIZE);
 
                 int mouseX = e.getX();
@@ -49,16 +59,6 @@ public class BubbleGame extends JPanel {
             }
 
             @Override
-            public void mousePressed(MouseEvent e) {
-
-            }
-
-            @Override
-            public void mouseReleased(MouseEvent e) {
-
-            }
-
-            @Override
             public void mouseEntered(MouseEvent e) {
 
             }
@@ -72,19 +72,23 @@ public class BubbleGame extends JPanel {
         timer = new Timer(10, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                if(nextBall != null)
                 nextBall.update(w, h);
 
                 for (int i = 0; i < fixedBalls.length ; i++) {
                     for (int j = 0; j < fixedBalls[0].length; j++) {
-                        if(fixedBalls[i][j] != null){
+                        if(fixedBalls[i][j]!=null && nextBall != null){
                             if(nextBall.getBoundingRectangle().intersects(fixedBalls[i][j].getBoundingRectangle())) {
                                 int r = (int)nextBall.getPosition().getY()/Ball.SIZE;
                                 int c = (int)nextBall.getPosition().getX()/Ball.SIZE;
                                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0,0);
                                 nextBall = null;
+
                             }
                         }
+
                     }
+
                 }
 
                 repaint();
@@ -114,11 +118,15 @@ public class BubbleGame extends JPanel {
     //Balls move one row down
     //Out of bounds = fail
     private void shiftBalls() {
+        //if(ShiftDownCounter() == 0){
 
     }
-    //public int ShiftDownCounter(){
+    //public int ShiftCounter(){
 
    // }
+
+
+
 
     //Main - no need to change
     public static void main(String[] args) {
