@@ -20,24 +20,22 @@ public class Ball {
         this.direction = direction;
     }
 
-    //TODO: If a new Ball is created with no color parameter, make the Ball a random color (Red, Green, Blue)
     public Ball(Point position, int direction) {
         this.position = position;
 
         //Randomize this color! (only red, green, or blue for now)
         this.color = Color.RED;
         int num = (int)(Math.random() * 3);
-        if(num == 0){
+        if(num == 0) {
             this.color = Color.RED;
-        } else if(num == 1){
+        } else if(num == 1) {
             this.color = Color.GREEN;
-        } else if(num == 2){
+        } else if(num == 2) {
             this.color = Color.BLUE;
         }
 
         this.speed = 10;
         this.direction = direction;
-        //test
     }
 
     public void draw(Graphics2D g2) {
@@ -58,8 +56,10 @@ public class Ball {
 
     //Updates the Ball's direction if the Ball moves off screen
     private void updateDirection(int width, int height) {
-        if(position.x <= 0 || position.y <= 0 || position.x + SIZE >= width || position.y + SIZE >= height) {
-
+        if(position.x <= 0  || position.x + SIZE >= width) {
+            direction = 180 - direction;
+        } else if(position.y + SIZE >= height || position.y <= 0) {
+            direction = -direction;
         }
     }
 

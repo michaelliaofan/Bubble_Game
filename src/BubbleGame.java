@@ -53,10 +53,10 @@ public class BubbleGame extends JPanel {
             }
         });
 
-        timer = new Timer(1000, new ActionListener() {
+        timer = new Timer(100, new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-
+                nextBall.update(w, h);
 
                 repaint();
             }
