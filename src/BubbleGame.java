@@ -21,17 +21,17 @@ public class BubbleGame extends JPanel {
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
-//                Point initPos = new Point(w/2, h-24 - Ball.SIZE);
-//
-//                int mouseX = e.getX();
-//                int mouseY = e.getY();
-//
-//                int dx = mouseX - initPos.x;
-//                int dy = mouseY - initPos.y;
-//
-//                int direction = (int)Math.toDegrees(Math.atan(dy/dx));
-//
-//                nextBall = new Ball(initPos, direction);
+                Point initPos = new Point(w/2, h-24 - Ball.SIZE);
+
+                int mouseX = e.getX();
+                int mouseY = e.getY();
+
+                int dx = mouseX - initPos.x;
+                int dy = mouseY - initPos.y;
+
+                int direction = (int)Math.toDegrees(Math.atan(dy/dx));
+
+                nextBall = new Ball(initPos, direction);
             }
 
             @Override
