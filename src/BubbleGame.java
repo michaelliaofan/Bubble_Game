@@ -38,23 +38,25 @@ public class BubbleGame extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                Point initCenter = new Point(w/2, h-24 - Ball.SIZE);
+                if(-0.1 <= nextBall.getVelocity() && nextBall.getVelocity() <= 0.1) {
+                    Point initCenter = new Point(w/2, h-24 - Ball.SIZE);
 
-                double mouseX = e.getX();
-                double mouseY = e.getY();
+                    double mouseX = e.getX();
+                    double mouseY = e.getY();
 
-                double dx = mouseX - initCenter.x;
-                double dy = mouseY - initCenter.y;
+                    double dx = mouseX - initCenter.x;
+                    double dy = mouseY - initCenter.y;
 
-                double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                    double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
-                dx *= 10;
-                dy *= 10;
+                    dx *= 10;
+                    dy *= 10;
 
-                dx /= dxy;
-                dy /= dxy;
+                    dx /= dxy;
+                    dy /= dxy;
 
-                nextBall.setVelocity((int)dx, (int)dy);
+                    nextBall.setVelocity((int)dx, (int)dy);
+                }
             }
 
             @Override
@@ -82,8 +84,8 @@ public class BubbleGame extends JPanel {
 //                            if(nextBall.getBoundingRectangle().intersects(fixedBalls[r][c].getBoundingRectangle())) {
 //
 //                            }
-
-                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
+//                            nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE
+                            if(nextBall.getCenter().y <= 0) {
                                 int r1 = (int)nextBall.getCenter().getY()/Ball.SIZE;
                                 int c1 = (int)nextBall.getCenter().getX()/Ball.SIZE;
                                 fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);

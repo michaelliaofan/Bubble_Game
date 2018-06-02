@@ -87,4 +87,7 @@ public class Ball {
         this.dx = dx;
         this.dy = dy;
     }
+    public double getVelocity() {
+        return Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2));
+    }
 }
