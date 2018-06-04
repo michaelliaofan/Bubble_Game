@@ -38,10 +38,6 @@ public class Ball {
         g2.fillOval((int)(center.getX() - SIZE/2), (int)(center.getY() - SIZE/2), SIZE, SIZE);
     }
 
-//    public Rectangle getBoundingRectangle() {
-//         return new Rectangle((int)(center.getX() - SIZE/2), (int)(center.getY()-SIZE/2), SIZE, SIZE);
-//    }
-
     //Calculates the distance between this Ball's center and another Ball's center
     public double distanceTo(Ball other) {
         double dx = (Math.abs(this.getCenter().getX() - other.getCenter().getX()));
