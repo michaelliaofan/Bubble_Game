@@ -23,8 +23,6 @@ public class BubbleGame extends JPanel {
             }
         }
 
-        nextBall = new Ball(new Point(300, 300), 2, 4);
-
         addMouseListener(new MouseListener() {
             @Override
             public void mouseClicked(MouseEvent e) {
