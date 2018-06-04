@@ -118,6 +118,13 @@ public class BubbleGame extends JPanel {
 
     //TODO: Make a random set of Balls in row 0 of fixedBalls
     private void addRow() {
+        for (int r = 0; r < 1; r++) {
+            for (int c = 0; c < fixedBalls[0].length; c++) {
+                fixedBalls[r][c] = new Ball (new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+
+            }
+
+        }
 
     }
 
