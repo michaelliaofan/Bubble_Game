@@ -65,6 +65,17 @@ public class Ball {
         updateDirection(width, height);
     }
 
+    public void randomizeColor() {
+        int num = (int)(Math.random() * 3);
+        if(num == 0) {
+            this.color = Color.RED;
+        } else if(num == 1) {
+            this.color = Color.GREEN;
+        } else if(num == 2) {
+            this.color = Color.BLUE;
+        }
+    }
+
     //Getters/setters - no need to change
     public Color getColor() {
         return color;

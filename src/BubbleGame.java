@@ -88,6 +88,7 @@ public class BubbleGame extends JPanel {
 
                                 nextBall.setCenter(new Point.Double(w/2, h-24 - Ball.SIZE));
                                 nextBall.setVelocity(0, 0);
+                                nextBall.randomizeColor();
 
                                 removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
                             }
@@ -106,20 +107,20 @@ public class BubbleGame extends JPanel {
 
     //TODO: Check the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
     private void removeBalls(Color color, int r, int c) {
-        for (int row = r-1; row < r+2; row++) {
-            for (int col = c-1; col < c+2; col++) {
-                if(row != r && col != c){
-                    if(fixedBalls[row][col].getColor() == color){
-                        fixedBalls[row][col] = null;
-                        removeBalls(color, row, col);
-
+        for(int row = r - 1; row <= r + 1; row++) {
+            for(int col = c-1; col <= c + 1; col++) {
+                if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
+                    if(row != r && col != c){
+                        if(fixedBalls[row][col] != null) {
+                            if(fixedBalls[row][col].getColor() == color) {
+                                fixedBalls[row][col] = null;
+                                removeBalls(color, row, col);
+                            }
+                        }
                     }
                 }
-
             }
-
         }
-
     }
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
@@ -134,19 +135,14 @@ public class BubbleGame extends JPanel {
                         addRow();
                     }
                 }
-
             }
-
         }
-
     }
 
     //TODO: Make a random set of Balls in row 0 of fixedBalls
     private void addRow() {
-        for (int r = 0; r < 1; r++) {
-            for (int c = 0; c < fixedBalls[0].length; c++) {
-                fixedBalls[r][c] = new Ball (new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
-            }
+        for(int c = 0; c < fixedBalls[0].length; c++) {
+            fixedBalls[0][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE/2), 0, 0);
         }
     }
 
