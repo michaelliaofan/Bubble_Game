@@ -84,13 +84,16 @@ public class BubbleGame extends JPanel {
                             if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
                                 int r1 = (int)nextBall.getCenter().getY()/Ball.SIZE;
                                 int c1 = (int)nextBall.getCenter().getX()/Ball.SIZE;
-                                fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
+
+                                if(removeBalls(nextBall.getColor(), r1, c1) == 0) {
+                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
+                                }
+
+                                shiftBalls();
 
                                 nextBall.setCenter(new Point.Double(w/2, h-24 - Ball.SIZE));
                                 nextBall.setVelocity(0, 0);
                                 nextBall.randomizeColor();
-
-                                removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
                             }
                         }
                     }
@@ -106,27 +109,33 @@ public class BubbleGame extends JPanel {
     }
 
     //TODO: Check the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
-    private void removeBalls(Color color, int r, int c) {
+    private int removeBalls(Color color, int r, int c) {
+        int count = 0;
+
         for(int row = r - 1; row <= r + 1; row++) {
-            for(int col = c-1; col <= c + 1; col++) {
+            for(int col = c - 1; col <= c + 1; col++) {
                 if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
                     if(fixedBalls[row][col] != null) {
                         if(fixedBalls[row][col].getColor() == color) {
                             fixedBalls[row][col] = null;
+                            count++;
+
                             removeBalls(color, row, col);
                         }
                     }
                 }
             }
         }
+
+        return count;
     }
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
-        for (int i = fixedBalls.length; i < 0 ; i++) {
-            for (int j = fixedBalls[0].length; j < 0; j++) {
+        for(int i = fixedBalls.length; i < 0 ; i++) {
+            for(int j = fixedBalls[0].length; j < 0; j++) {
                 if(fixedBalls[fixedBalls.length][j] == null){
-                    if (i>0) {
+                    if (i > 0) {
                         fixedBalls[i][j] = fixedBalls[i - 1][j];
                     }
                     if(i == 0){
