@@ -106,6 +106,19 @@ public class BubbleGame extends JPanel {
 
     //TODO: Check the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
     private void removeBalls(Color color, int r, int c) {
+        for (int row = r-1; row < r+2; row++) {
+            for (int col = c-1; col < c+2; col++) {
+                if(row != r && col != c){
+                    if(fixedBalls[row][col].getColor() == color){
+                        fixedBalls[row][col] = null;
+                        removeBalls(color, row, col);
+
+                    }
+                }
+
+            }
+
+        }
 
     }
 
