@@ -110,12 +110,10 @@ public class BubbleGame extends JPanel {
         for(int row = r - 1; row <= r + 1; row++) {
             for(int col = c-1; col <= c + 1; col++) {
                 if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
-                    if(row != r && col != c){
-                        if(fixedBalls[row][col] != null) {
-                            if(fixedBalls[row][col].getColor() == color) {
-                                fixedBalls[row][col] = null;
-                                removeBalls(color, row, col);
-                            }
+                    if(fixedBalls[row][col] != null) {
+                        if(fixedBalls[row][col].getColor() == color) {
+                            fixedBalls[row][col] = null;
+                            removeBalls(color, row, col);
                         }
                     }
                 }
@@ -139,7 +137,7 @@ public class BubbleGame extends JPanel {
         }
     }
 
-    //TODO: Make a random set of Balls in row 0 of fixedBalls
+    //Makes a random set of Balls in row 0 of fixedBalls
     private void addRow() {
         for(int c = 0; c < fixedBalls[0].length; c++) {
             fixedBalls[0][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE/2), 0, 0);
