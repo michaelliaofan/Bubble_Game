@@ -115,6 +115,20 @@ public class BubbleGame extends JPanel {
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
+        for (int i = fixedBalls.length; i < 0 ; i++) {
+            for (int j = fixedBalls[0].length; j < 0; j++) {
+                if(fixedBalls[fixedBalls.length][j] == null){
+                    if (i>0) {
+                        fixedBalls[i][j] = fixedBalls[i - 1][j];
+                    }
+                    if(i == 0){
+                        addRow();
+                    }
+                }
+
+            }
+
+        }
 
     }
 
