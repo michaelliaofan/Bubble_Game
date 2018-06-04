@@ -3,13 +3,13 @@ import java.awt.*;
 public class Ball {
     public static final int SIZE = 50;
 
-    private Point center;
+    private Point.Double center;
     private Color color;
 
-    private int dx, dy;
+    private double dx, dy;
 
-    public Ball(Point center, Color color, int dx, int dy) {
-        this.center = center;
+    public Ball(Point center, Color color, double dx, double dy) {
+        this.center = new Point.Double(center.x, center.y);
 
         this.dx = dx;
         this.dy = dy;
@@ -17,8 +17,8 @@ public class Ball {
         this.color = color;
     }
 
-    public Ball(Point center, int dx, int dy) {
-        this.center = center;
+    public Ball(Point center, double dx, double dy) {
+        this.center = new Point.Double(center.x, center.y);
 
         this.dx = dx;
         this.dy = dy;
@@ -42,19 +42,16 @@ public class Ball {
 //         return new Rectangle((int)(center.getX() - SIZE/2), (int)(center.getY()-SIZE/2), SIZE, SIZE);
 //    }
 
-    //TODO: Calculate the distance between this Ball's center and another Ball's center
+    //Calculates the distance between this Ball's center and another Ball's center
     public double distanceTo(Ball other) {
         double dx = (Math.abs(this.getCenter().getX() - other.getCenter().getX()));
         double dy = (Math.abs(this.getCenter().getY() - other.getCenter().getY()));
-        double distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
-        return distance;
-        //This ball's center is given by this.center
-        //Ball other's center is given by other.getCenter()
+        return Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
     }
 
     //Updates the Ball's center per frame
     private void updatePosition() {
-        this.center.translate(dx, dy);
+        this.center.setLocation(this.center.getX()+dx, this.center.getY()+dy);
     }
 
     //Updates the Ball's direction if the Ball moves off screen
@@ -79,13 +76,13 @@ public class Ball {
     public void setColor(Color color) {
         this.color = color;
     }
-    public Point getCenter() {
+    public Point.Double getCenter() {
         return center;
     }
-    public void setCenter(Point center) {
+    public void setCenter(Point.Double center) {
         this.center = center;
     }
-    public void setVelocity(int dx, int dy) {
+    public void setVelocity(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
     }

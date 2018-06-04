@@ -55,7 +55,7 @@ public class BubbleGame extends JPanel {
                     dx /= dxy;
                     dy /= dxy;
 
-                    nextBall.setVelocity((int)dx, (int)dy);
+                    nextBall.setVelocity(dx, dy);
                 }
             }
 
@@ -90,7 +90,7 @@ public class BubbleGame extends JPanel {
                                 int c1 = (int)nextBall.getCenter().getX()/Ball.SIZE;
                                 fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
 
-                                nextBall.setCenter(new Point(w/2, h-24 - Ball.SIZE));
+                                nextBall.setCenter(new Point.Double(w/2, h-24 - Ball.SIZE));
                                 nextBall.setVelocity(0, 0);
 
                                 removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
@@ -137,11 +137,8 @@ public class BubbleGame extends JPanel {
         for (int r = 0; r < 1; r++) {
             for (int c = 0; c < fixedBalls[0].length; c++) {
                 fixedBalls[r][c] = new Ball (new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
-
             }
-
         }
-
     }
 
     public void paintComponent(Graphics g){
