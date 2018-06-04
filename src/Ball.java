@@ -44,10 +44,12 @@ public class Ball {
 
     //TODO: Calculate the distance between this Ball's center and another Ball's center
     public double distanceTo(Ball other) {
+        double dx = (Math.abs(this.getCenter().getX() - other.getCenter().getX()));
+        double dy = (Math.abs(this.getCenter().getY() - other.getCenter().getY()));
+        double distance = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+        return distance;
         //This ball's center is given by this.center
         //Ball other's center is given by other.getCenter()
-
-        return 0;
     }
 
     //Updates the Ball's center per frame
