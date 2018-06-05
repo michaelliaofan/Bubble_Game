@@ -85,15 +85,17 @@ public class BubbleGame extends JPanel {
                                 int r1 = (int)nextBall.getCenter().getY()/Ball.SIZE;
                                 int c1 = (int)nextBall.getCenter().getX()/Ball.SIZE;
 
-                                if(removeBalls(nextBall.getColor(), r1, c1) == 0) {
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
-                                }
-
-                                shiftBalls();
+                                fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), 0, 0);
 
                                 nextBall.setCenter(new Point.Double(w/2, h-24 - Ball.SIZE));
                                 nextBall.setVelocity(0, 0);
                                 nextBall.randomizeColor();
+
+                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
+                                    removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
+                                }
+
+                                shiftBalls();
                             }
                         }
                     }
@@ -108,8 +110,7 @@ public class BubbleGame extends JPanel {
         didLose = false;
     }
 
-    //Checks the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
-    private int removeBalls(Color color, int r, int c) {
+    private int countBalls(Color color, int r, int c) {
         int count = 0;
 
         for(int row = r - 1; row <= r + 1; row++) {
@@ -117,10 +118,7 @@ public class BubbleGame extends JPanel {
                 if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
                     if(fixedBalls[row][col] != null) {
                         if(fixedBalls[row][col].getColor() == color) {
-                            fixedBalls[row][col] = null;
                             count++;
-
-                            removeBalls(color, row, col);
                         }
                     }
                 }
@@ -130,17 +128,36 @@ public class BubbleGame extends JPanel {
         return count;
     }
 
+    //Checks the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
+    private void removeBalls(Color color, int r, int c) {
+        for(int row = r - 1; row <= r + 1; row++) {
+            for(int col = c - 1; col <= c + 1; col++) {
+                if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
+                    if(fixedBalls[row][col] != null) {
+                        if(fixedBalls[row][col].getColor() == color) {
+                            fixedBalls[row][col] = null;
+
+                            removeBalls(color, row, col);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
         for(int r = fixedBalls.length - 1; r >= 0 ; r--) {
             for(int c = fixedBalls[0].length - 1; c >= 0; c--) {
-                if(fixedBalls[fixedBalls.length - 1][c] != null){
+                if(fixedBalls[fixedBalls.length - 1][c] != null) {
                     didLose = true;
                     return;
                 }
 
                 if(r > 0) {
                     fixedBalls[r][c] = fixedBalls[r - 1][c];
+                } else {
+                    fixedBalls[r][c] = null;
                 }
             }
         }
