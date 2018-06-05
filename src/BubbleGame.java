@@ -95,7 +95,7 @@ public class BubbleGame extends JPanel {
                                     removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
                                 }
 
-                                shiftBalls();
+//                                shiftBalls();
                             }
                         }
                     }
