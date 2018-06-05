@@ -12,6 +12,7 @@ public class BubbleGame extends JPanel {
     private Timer timer;
 
     private boolean didLose;
+    private int ballshiftcount;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
@@ -81,7 +82,7 @@ public class BubbleGame extends JPanel {
                 for(int r = 0; r < fixedBalls.length ; r++) {
                     for(int c = 0; c < fixedBalls[0].length; c++) {
                         if(fixedBalls[r][c] != null && nextBall != null) {
-                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE || nextBall.getCenter().y - Ball.SIZE <= 0) {
+                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
                                 int r1 = (int)nextBall.getCenter().getY()/Ball.SIZE;
                                 int c1 = (int)nextBall.getCenter().getX()/Ball.SIZE;
 
@@ -147,6 +148,7 @@ public class BubbleGame extends JPanel {
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
+
         for(int r = fixedBalls.length - 1; r >= 0 ; r--) {
             for(int c = fixedBalls[0].length - 1; c >= 0; c--) {
                 if(fixedBalls[fixedBalls.length - 1][c] != null) {
