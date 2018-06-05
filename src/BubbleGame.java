@@ -4,6 +4,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
@@ -92,6 +93,7 @@ public class BubbleGame extends JPanel {
                                 nextBall.setVelocity(0, 0);
                                 nextBall.randomizeColor();
 
+                                System.out.println("Count: " + countBalls(fixedBalls[r1][c1].getColor(), r1, c1));
                                 if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
                                     removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
                                 }
@@ -111,8 +113,12 @@ public class BubbleGame extends JPanel {
         didLose = false;
     }
 
+
     private int countBalls(Color color, int r, int c) {
-        int count = 0;
+        int count = 1;
+
+        ArrayList<Ball> countedBalls = new ArrayList<Ball>();
+        countedBalls.add(fixedBalls[r][c]);
 
         for(int row = r - 1; row <= r + 1; row++) {
             for(int col = c - 1; col <= c + 1; col++) {
@@ -120,6 +126,8 @@ public class BubbleGame extends JPanel {
                     if(fixedBalls[row][col] != null) {
                         if(fixedBalls[row][col].getColor() == color) {
                             count++;
+
+                            countBalls(color, row, col);
                         }
                     }
                 }
