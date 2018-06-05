@@ -76,13 +76,22 @@ public class Ball {
     }
 
     public void randomizeColor() {
-        int num = (int)(Math.random() * 3);
+        int num = (int)(Math.random() * 5);
         if(num == 0) {
-            this.color = Color.RED;
+            Color red = new Color (255, 119, 144);
+            this.color = red;
         } else if(num == 1) {
-            this.color = Color.GREEN;
+            Color green = new Color(128, 245, 166);
+            this.color = green;
         } else if(num == 2) {
-            this.color = Color.BLUE;
+            Color blue = new Color (181, 250, 255);
+            this.color = blue;
+        } else if(num == 3) {
+            Color purple = new Color(251, 180, 255);
+            this.color = purple;
+        } else if(num == 4){
+            Color yellow = new Color(255, 248, 0);
+            this.color = yellow;
         }
     }
 
