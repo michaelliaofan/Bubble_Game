@@ -81,7 +81,7 @@ public class BubbleGame extends JPanel {
                 for(int r = 0; r < fixedBalls.length ; r++) {
                     for(int c = 0; c < fixedBalls[0].length; c++) {
                         if(fixedBalls[r][c] != null && nextBall != null) {
-                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
+                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE || nextBall.getCenter().y - Ball.SIZE <= 0) {
                                 int r1 = (int)nextBall.getCenter().getY()/Ball.SIZE;
                                 int c1 = (int)nextBall.getCenter().getX()/Ball.SIZE;
 
