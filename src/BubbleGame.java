@@ -144,10 +144,14 @@ public class BubbleGame extends JPanel {
                         total++;
 
                         wasCounted[r][c] = true;
+
+                        countBalls(color, r, c);
                     }
                 }
             }
         }
+
+        return total;
     }
 
 //    private int countBalls(Color color, int r, int c) {
