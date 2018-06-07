@@ -100,6 +100,7 @@ public class BubbleGame extends JPanel {
                                 nextBall.randomizeColor();
 
                                 System.out.println("Count: " + countBalls(fixedBalls[r1][c1].getColor(), r1, c1));
+                                System.out.println();
 //                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
 //                                    removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
 //                                }
@@ -121,7 +122,7 @@ public class BubbleGame extends JPanel {
 
     private int countBalls(Color color, int r, int c) {
         int total = 1;
-
+        wasCounted[r][c] = true;
         total = countBalls(color, r-1, c-1, total);
         total = countBalls(color, r, c-1, total);
         total = countBalls(color, r+1, c-1, total);
@@ -137,19 +138,39 @@ public class BubbleGame extends JPanel {
     }
 
     private int countBalls(Color color, int r, int c, int total) {
+        System.out.println("r: " + r + ", c: " + c);
+
         if(0 <= r && r < fixedBalls.length && 0 <= c && c < fixedBalls[0].length) {
+            System.out.println("LEGAL INDEX");
+
             if(fixedBalls[r][c] != null) {
-                if(fixedBalls[r][c].getColor() == color) {
+                System.out.println("NOT NULL");
+
+                if(fixedBalls[r][c].getColor().equals(color)) {
+                    System.out.println("CORRECT COLOR");
+
                     if(!wasCounted[r][c]) {
+                        System.out.println("COUNTED");
+
                         total++;
 
                         wasCounted[r][c] = true;
 
-                        countBalls(color, r, c);
-                    }
+                        total = countBalls(color, r-1, c-1, total);
+                        total = countBalls(color, r, c-1, total);
+                        total = countBalls(color, r+1, c-1, total);
+
+                        total = countBalls(color, r-1, c, total);
+                        total = countBalls(color, r+1, c, total);
+
+                        total = countBalls(color, r-1, c+1, total);
+                        total = countBalls(color, r, c+1, total);
+                        total = countBalls(color, r+1, c+1, total);                    }
                 }
             }
         }
+
+        System.out.println();
 
         return total;
     }
