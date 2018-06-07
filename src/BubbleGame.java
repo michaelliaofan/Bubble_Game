@@ -10,6 +10,9 @@ public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
     private Ball nextBall;
 
+    private boolean wasCounted[][];
+    private boolean wasFlagged[][];
+
     private Timer timer;
 
     private boolean didLose;
@@ -26,6 +29,9 @@ public class BubbleGame extends JPanel {
         }
 
         nextBall = new Ball(new Point(w/2, h-24 - Ball.SIZE), 0, 0);
+
+        wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
+        wasFlagged = new boolean[fixedBalls.length][fixedBalls[0].length];
 
         addMouseListener(new MouseListener() {
             @Override
@@ -94,9 +100,9 @@ public class BubbleGame extends JPanel {
                                 nextBall.randomizeColor();
 
                                 System.out.println("Count: " + countBalls(fixedBalls[r1][c1].getColor(), r1, c1));
-                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
-                                    removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
-                                }
+//                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
+//                                    removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
+//                                }
 
 //                                shiftBalls();
                             }
@@ -113,27 +119,32 @@ public class BubbleGame extends JPanel {
         didLose = false;
     }
 
-
     private int countBalls(Color color, int r, int c) {
-        int count = 1;
-
-        ArrayList<Ball> countedBalls = new ArrayList<Ball>();
-        countedBalls.add(fixedBalls[r][c]);
+        int count = 0;
 
         for(int row = r - 1; row <= r + 1; row++) {
             for(int col = c - 1; col <= c + 1; col++) {
                 if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
                     if(fixedBalls[row][col] != null) {
+                        System.out.println("NOT NULL");
                         if(fixedBalls[row][col].getColor() == color) {
-                            count++;
+                            System.out.println("RIGHT COLOR");
+                            if(!wasCounted[row][col]) {
+                                System.out.println("COUNT++");
 
-                            countBalls(color, row, col);
+                                count++;
+
+                                wasCounted[r][c] = true;
+
+                                count += countBalls(color, row, col);
+                            }
                         }
                     }
                 }
             }
         }
 
+        System.out.println();
         return count;
     }
 
