@@ -243,6 +243,14 @@ public class BubbleGame extends JPanel {
         }
     }
 
+    public boolean win(){ //edit this is the win condition
+        return false;
+    }
+
+    public boolean lose(){ //edit this is the lose condition
+        return false;
+    }
+
     public void paintComponent(Graphics g){
         super.paintComponent(g);
         Graphics2D g2 = (Graphics2D)g;
@@ -258,6 +266,20 @@ public class BubbleGame extends JPanel {
         if(nextBall != null) {
             nextBall.draw(g2);
         }
+
+        if(win() == true){
+            Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
+            g2.setFont(myFont);
+            g2.setColor(Color.black);
+            g2.drawString("YOU WIN", 400, 25);
+        }
+        if(lose() == true){
+            Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
+            g2.setFont(myFont);
+            g2.setColor(Color.black);
+            g2.drawString("YOU LOSE", 400, 25);
+        }
+
     }
 
     //Main - no need to change
