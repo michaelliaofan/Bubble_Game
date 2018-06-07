@@ -142,7 +142,7 @@ public class BubbleGame extends JPanel {
 
         if(0 <= r && r < fixedBalls.length && 0 <= c && c < fixedBalls[0].length) {
             System.out.println("LEGAL INDEX");
-
+//
             if(fixedBalls[r][c] != null) {
                 System.out.println("NOT NULL");
 
