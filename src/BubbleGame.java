@@ -265,10 +265,18 @@ public class BubbleGame extends JPanel {
     }
 
     public boolean win(){ //edit this is the win condition
-        return false;
+        for(int r = 0; r<fixedBalls.length; r++){
+            for(int c = 0; c<fixedBalls[0].length; c++){
+                if(fixedBalls[r][c] != null){
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
     public boolean lose(){ //edit this is the lose condition
+
         return false;
     }
 
