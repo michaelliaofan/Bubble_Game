@@ -34,33 +34,7 @@ public class Ball {
         this.dx = dx;
         this.dy = dy;
 
-        int num = (int)(Math.random() * 5);
-        if(num == 0) {
-            Color red = new Color (255, 119, 144);
-            this.color = red;
-            Color darkred = new Color (225, 117, 117);
-            this.shadow = darkred;
-        } else if(num == 1) {
-            Color green = new Color(128, 245, 166);
-            this.color = green;
-            Color darkgreen = new Color(108, 215, 137);
-            this.shadow = darkgreen;
-        } else if(num == 2) {
-            Color blue = new Color (147, 248, 255);
-            this.color = blue;
-            Color darkblue = new Color (122, 223, 230);
-            this.shadow = darkblue;
-        } else if(num == 3) {
-            Color purple = new Color(251, 180, 255);
-            this.color = purple;
-            Color darkpurple = new Color(226, 158, 230);
-            this.shadow = darkpurple;
-        } else if(num == 4){
-            Color yellow = new Color(255, 248, 0);
-            this.color = yellow;
-            Color darkyellow = new Color(245, 238, 0);
-            this.shadow = darkyellow;
-        }
+        randomizeColor();
     }
 
     public void draw(Graphics2D g2) {
