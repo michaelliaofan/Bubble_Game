@@ -222,7 +222,11 @@ public class BubbleGame extends JPanel {
                         fixedBalls[r][c] = new Ball(r, c);
                     }
 
-                    moveBall(fixedBalls[r - 1][c], fixedBalls[r][c]);
+                    if(fixedBalls[r - 1][c] == null) {
+                        fixedBalls[r][c] = null;
+                    } else {
+                        moveBall(fixedBalls[r - 1][c], fixedBalls[r][c]);
+                    }
                 }
 
                 if(r == 0) {
@@ -231,15 +235,10 @@ public class BubbleGame extends JPanel {
             }
         }
 
-//        addRow();
+        addRow();
     }
 
     private void moveBall(Ball from, Ball to) {
-        if(from == null) {
-            to = null;
-            return;
-        }
-
         to.setColor(from.getColor());
         to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
 
