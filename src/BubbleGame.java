@@ -20,7 +20,8 @@ public class BubbleGame extends JPanel {
     private Timer timer;
 
     private boolean didLose;
-    private int ballshiftcount;
+
+    private int shotsUntilShift;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
@@ -36,6 +37,8 @@ public class BubbleGame extends JPanel {
         nextBall = new Ball(new Point(w/2, h-24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
+
+        shotsUntilShift = 5;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -110,7 +113,12 @@ public class BubbleGame extends JPanel {
 
                                 clearWasCounted();
 
-                                shiftBalls();
+                                shotsUntilShift--;
+
+                                if(shotsUntilShift == 0) {
+                                    shotsUntilShift = 5;
+                                    shiftBalls();
+                                }
 
                                 break outer;
                             }
@@ -240,6 +248,7 @@ public class BubbleGame extends JPanel {
 
     private void moveBall(Ball from, Ball to) {
         to.setColor(from.getColor());
+        to.setShadow(from.getShadow());
         to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
 
         from = null;
@@ -312,7 +321,7 @@ public class BubbleGame extends JPanel {
                 AudioStream audioStream = new AudioStream(in);
 
                 AudioPlayer.player.start(audioStream);
-            }catch(Exception e){
+            } catch(Exception e){
                 e.printStackTrace();
                 System.out.println("Error loading sound file.");
             }
