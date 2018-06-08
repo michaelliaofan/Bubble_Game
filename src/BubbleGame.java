@@ -224,11 +224,11 @@ public class BubbleGame extends JPanel {
                 }
             }
         }
+
         return true;
     }
 
     private boolean lose() { //edit this is the lose condition
-
         return false;
     }
 
@@ -260,7 +260,6 @@ public class BubbleGame extends JPanel {
             g2.setColor(Color.black);
             g2.drawString("YOU LOSE", 400, 25);
         }
-
     }
 
     //Main - no need to change
