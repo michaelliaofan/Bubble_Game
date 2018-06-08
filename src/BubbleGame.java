@@ -290,6 +290,16 @@ public class BubbleGame extends JPanel {
             g2.setFont(myFont);
             g2.setColor(Color.black);
             g2.drawString("YOU WIN", 400, 25);
+            try {
+                String hop = "Sounds/cheer_long.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
         }
 
         if(didLose){
@@ -297,6 +307,16 @@ public class BubbleGame extends JPanel {
             g2.setFont(myFont);
             g2.setColor(Color.black);
             g2.drawString("YOU LOSE", 400, 25);
+            try {
+                String hop = "Sounds/Sad_Trombone-Joe_Lamb-665429450.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
         }
     }
 
