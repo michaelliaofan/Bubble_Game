@@ -222,7 +222,11 @@ public class BubbleGame extends JPanel {
                         fixedBalls[r][c] = new Ball(r, c);
                     }
 
-                    moveBall(fixedBalls[r - 1][c], fixedBalls[r][c]);
+                    if(fixedBalls[r - 1][c] == null) {
+                        fixedBalls[r][c] = null;
+                    } else {
+                        moveBall(fixedBalls[r - 1][c], fixedBalls[r][c]);
+                    }
                 }
 
                 if(r == 0) {
@@ -231,15 +235,10 @@ public class BubbleGame extends JPanel {
             }
         }
 
-//        addRow();
+        addRow();
     }
 
     private void moveBall(Ball from, Ball to) {
-        if(from == null) {
-            to = null;
-            return;
-        }
-
         to.setColor(from.getColor());
         to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
 
@@ -290,6 +289,16 @@ public class BubbleGame extends JPanel {
             g2.setFont(myFont);
             g2.setColor(Color.black);
             g2.drawString("YOU WIN", 400, 25);
+            try {
+                String hop = "Sounds/cheer_long.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
         }
 
         if(didLose){
@@ -297,6 +306,16 @@ public class BubbleGame extends JPanel {
             g2.setFont(myFont);
             g2.setColor(Color.black);
             g2.drawString("YOU LOSE", 400, 25);
+            try {
+                String hop = "Sounds/Sad_Trombone-Joe_Lamb-665429450.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
         }
     }
 
