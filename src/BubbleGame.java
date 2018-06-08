@@ -99,7 +99,6 @@ public class BubbleGame extends JPanel {
                                 nextBall.randomizeColor();
 
                                 if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
-                                    System.out.println("REMOVE");
                                     removeBalls();
                                 }
 
@@ -192,7 +191,6 @@ public class BubbleGame extends JPanel {
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
-
         for(int r = fixedBalls.length - 1; r >= 0 ; r--) {
             for(int c = fixedBalls[0].length - 1; c >= 0; c--) {
                 if(fixedBalls[fixedBalls.length - 1][c] != null) {
@@ -218,7 +216,7 @@ public class BubbleGame extends JPanel {
         }
     }
 
-    private boolean win(){ //edit this is the win condition
+    private boolean win() { //edit this is the win condition
         for(int r = 0; r<fixedBalls.length; r++){
             for(int c = 0; c<fixedBalls[0].length; c++){
                 if(fixedBalls[r][c] != null){
@@ -229,7 +227,7 @@ public class BubbleGame extends JPanel {
         return true;
     }
 
-    private boolean lose(){ //edit this is the lose condition
+    private boolean lose() { //edit this is the lose condition
 
         return false;
     }
