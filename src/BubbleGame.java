@@ -228,9 +228,6 @@ public class BubbleGame extends JPanel {
         return true;
     }
 
-    private boolean lose() { //edit this is the lose condition
-        return false;
-    }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -254,7 +251,7 @@ public class BubbleGame extends JPanel {
             g2.setColor(Color.black);
             g2.drawString("YOU WIN", 400, 25);
         }
-        if(lose() == true){
+        if(didLose){
             Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
             g2.setFont(myFont);
             g2.setColor(Color.black);
