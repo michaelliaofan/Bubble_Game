@@ -6,6 +6,7 @@ public class Ball {
     private Point.Double center;
     private Color color;
 
+
     private double dx, dy;
 
     public Ball(int r, int c) {
