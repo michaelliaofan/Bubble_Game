@@ -9,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
@@ -16,11 +17,10 @@ public class BubbleGame extends JPanel {
 
     private boolean wasCounted[][];
 
-    private int shotsUntilShift;
-
     private Timer timer;
 
     private boolean didLose;
+    private int ballshiftcount;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
@@ -36,8 +36,6 @@ public class BubbleGame extends JPanel {
         nextBall = new Ball(new Point(w/2, h-24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
-
-        shotsUntilShift = 5;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -112,12 +110,7 @@ public class BubbleGame extends JPanel {
 
                                 clearWasCounted();
 
-                                shotsUntilShift--;
-
-                                if(shotsUntilShift == 0) {
-                                    shotsUntilShift = 5;
-                                    shiftBalls();
-                                }
+                                shiftBalls();
 
                                 break outer;
                             }

@@ -5,16 +5,21 @@ public class Ball {
 
     private Point.Double center;
     private Color color;
+    private Color shadow;
 
     private double dx, dy;
 
-    public Ball(Point center, Color color, double dx, double dy) {
+    public Ball(int a, int b){
+
+    }
+    public Ball(Point center, Color color, Color shadow, double dx, double dy) {
         this.center = new Point.Double(center.x, center.y);
 
         this.dx = dx;
         this.dy = dy;
 
         this.color = color;
+        this.shadow = shadow;
     }
 
     public Ball(Point center, double dx, double dy) {
@@ -27,25 +32,36 @@ public class Ball {
         if(num == 0) {
             Color red = new Color (255, 119, 144);
             this.color = red;
+            Color darkred = new Color (225, 117, 117);
+            this.shadow = darkred;
         } else if(num == 1) {
             Color green = new Color(128, 245, 166);
             this.color = green;
+            Color darkgreen = new Color(108, 215, 137);
+            this.shadow = darkgreen;
         } else if(num == 2) {
             Color blue = new Color (147, 248, 255);
             this.color = blue;
+            Color darkblue = new Color (122, 223, 230);
+            this.shadow = darkblue;
         } else if(num == 3) {
             Color purple = new Color(251, 180, 255);
             this.color = purple;
+            Color darkpurple = new Color(226, 158, 230);
+            this.shadow = darkpurple;
         } else if(num == 4){
             Color yellow = new Color(255, 248, 0);
             this.color = yellow;
+            Color darkyellow = new Color(245, 238, 0);
+            this.shadow = darkyellow;
         }
-
     }
 
     public void draw(Graphics2D g2) {
-        g2.setColor(color);
+        g2.setColor(shadow);
         g2.fillOval((int)(center.getX() - SIZE/2), (int)(center.getY() - SIZE/2), SIZE, SIZE);
+        g2.setColor(color);
+        g2.fillOval((int)(center.getX() - SIZE/2) + 2, (int)(center.getY() - SIZE/2) + 2, SIZE-12, SIZE-12);
     }
 
     //Calculates the distance between this Ball's center and another Ball's center
@@ -80,18 +96,28 @@ public class Ball {
         if(num == 0) {
             Color red = new Color (255, 119, 144);
             this.color = red;
+            Color darkred = new Color (225, 117, 117);
+            this.shadow = darkred;
         } else if(num == 1) {
             Color green = new Color(128, 245, 166);
             this.color = green;
+            Color darkgreen = new Color(108, 215, 137);
+            this.shadow = darkgreen;
         } else if(num == 2) {
             Color blue = new Color (147, 248, 255);
             this.color = blue;
+            Color darkblue = new Color (122, 223, 230);
+            this.shadow = darkblue;
         } else if(num == 3) {
             Color purple = new Color(251, 180, 255);
             this.color = purple;
+            Color darkpurple = new Color(226, 158, 230);
+            this.shadow = darkpurple;
         } else if(num == 4){
             Color yellow = new Color(255, 248, 0);
             this.color = yellow;
+            Color darkyellow = new Color(245, 238, 0);
+            this.shadow = darkyellow;
         }
     }
 
@@ -102,6 +128,15 @@ public class Ball {
     public void setColor(Color color) {
         this.color = color;
     }
+
+    public Color getShadow() {
+        return shadow;
+    }
+    public void setShadow(Color shadow) {
+        this.shadow = shadow;
+    }
+
+
     public Point.Double getCenter() {
         return center;
     }
