@@ -8,15 +8,6 @@ public class Ball {
 
     private double dx, dy;
 
-    public Ball(int r, int c) {
-        this.center = new Point.Double(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2);
-
-        this.dx = 0;
-        this.dy = 0;
-
-        this.color = new Color(0, 0, 0);
-    }
-
     public Ball(Point center, Color color, double dx, double dy) {
         this.center = new Point.Double(center.x, center.y);
 
