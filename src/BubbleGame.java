@@ -221,9 +221,9 @@ public class BubbleGame extends JPanel {
                     if(fixedBalls[r][c] == null) {
                         fixedBalls[r][c] = new Ball(r, c);
                     }
+
+                    moveBall(fixedBalls[r - 1][c], fixedBalls[r][c]);
                 }
-
-
 
                 if(r == 0) {
                     fixedBalls[r][c] = null;
