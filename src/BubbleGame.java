@@ -21,8 +21,9 @@ public class BubbleGame extends JPanel {
         setSize(w, h);
 
         fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
-        for (int r = 0; r < 3; r++) {
-            for (int c = 0; c < fixedBalls[0].length; c++) {
+
+        for(int r = 0; r < 3; r++) {
+            for(int c = 0; c < fixedBalls[0].length; c++) {
                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
             }
         }
@@ -104,8 +105,9 @@ public class BubbleGame extends JPanel {
 
                                 clearWasCounted();
 
+                                shiftBalls();
+
                                 break outer;
-//                                shiftBalls();
                             }
                         }
                     }
@@ -191,22 +193,42 @@ public class BubbleGame extends JPanel {
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
+        for(int c = 0; c < fixedBalls[0].length; c++) {
+            if(fixedBalls[fixedBalls.length - 1][c] != null) {
+                didLose = true;
+                return;
+            }
+        }
+
         for(int r = fixedBalls.length - 1; r >= 0 ; r--) {
             for(int c = fixedBalls[0].length - 1; c >= 0; c--) {
-                if(fixedBalls[fixedBalls.length - 1][c] != null) {
-                    didLose = true;
-                    return;
+                if(r > 0) {
+                    if(fixedBalls[r][c] == null) {
+                        fixedBalls[r][c] = new Ball(r, c);
+                    }
                 }
 
-                if(r > 0) {
-                    fixedBalls[r][c] = fixedBalls[r - 1][c];
-                } else {
+
+
+                if(r == 0) {
                     fixedBalls[r][c] = null;
                 }
             }
         }
 
-        addRow();
+//        addRow();
+    }
+
+    private void moveBall(Ball from, Ball to) {
+        if(from == null) {
+            to = null;
+            return;
+        }
+
+        to.setColor(from.getColor());
+        to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
+
+        from = null;
     }
 
     //Makes a random set of Balls in row 0 of fixedBalls
@@ -228,6 +250,9 @@ public class BubbleGame extends JPanel {
         return true;
     }
 
+    private boolean lose() { //edit this is the lose condition
+        return false;
+    }
 
     public void paintComponent(Graphics g){
         super.paintComponent(g);
@@ -251,6 +276,7 @@ public class BubbleGame extends JPanel {
             g2.setColor(Color.black);
             g2.drawString("YOU WIN", 400, 25);
         }
+
         if(didLose){
             Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
             g2.setFont(myFont);
