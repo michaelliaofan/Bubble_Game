@@ -204,6 +204,7 @@ public class BubbleGame extends JPanel {
                     if(fixedBalls[row][col] != null) {
                         if(fixedBalls[row][col].getColor() == color) {
                             fixedBalls[row][col] = null;
+
                             removeBalls(color, row, col);
                         }
                     }
