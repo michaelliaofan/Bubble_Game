@@ -31,7 +31,7 @@ public class Ball {
             Color green = new Color(128, 245, 166);
             this.color = green;
         } else if(num == 2) {
-            Color blue = new Color (181, 250, 255);
+            Color blue = new Color (147, 248, 255);
             this.color = blue;
         } else if(num == 3) {
             Color purple = new Color(251, 180, 255);
@@ -84,7 +84,7 @@ public class Ball {
             Color green = new Color(128, 245, 166);
             this.color = green;
         } else if(num == 2) {
-            Color blue = new Color (181, 250, 255);
+            Color blue = new Color (147, 248, 255);
             this.color = blue;
         } else if(num == 3) {
             Color purple = new Color(251, 180, 255);

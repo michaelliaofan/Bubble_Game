@@ -9,6 +9,7 @@ import java.util.ArrayList;
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
     private Ball nextBall;
+    private int score;
 
     private boolean wasCounted[][];
     private boolean wasFlagged[][];
@@ -101,9 +102,9 @@ public class BubbleGame extends JPanel {
 
                                 System.out.println("Count: " + countBalls(fixedBalls[r1][c1].getColor(), r1, c1));
 //                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
-//                                    removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
+//                                    score += removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
 //                                }
-                                //STOP
+//                                //STOP
 //                                shiftBalls();
                             }
                         }
@@ -144,13 +145,10 @@ public class BubbleGame extends JPanel {
                         total++;
 
                         wasCounted[r][c] = true;
-
-                        countBalls(color, r, c);
                     }
                 }
             }
         }
-
         return total;
     }
 
