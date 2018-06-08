@@ -1,9 +1,14 @@
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.FileInputStream;
+import java.io.InputStream;
 import java.util.ArrayList;
 
 public class BubbleGame extends JPanel {
@@ -174,6 +179,16 @@ public class BubbleGame extends JPanel {
             for(int c = 0; c < wasCounted[0].length; c++) {
                 if(wasCounted[r][c]) {
                     fixedBalls[r][c] = null;
+                    try {
+                        String hop = "Sounds/cork_pop_x.wav";
+                        InputStream in = new FileInputStream(hop);
+                        AudioStream audioStream = new AudioStream(in);
+
+                        AudioPlayer.player.start(audioStream);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        System.out.println("Error loading sound file.");
+                    }
 
                     total++;
                 }
