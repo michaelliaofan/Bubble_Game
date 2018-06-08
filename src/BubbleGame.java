@@ -1,29 +1,34 @@
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
-import java.util.ArrayList;
+import java.io.FileInputStream;
+import java.io.InputStream;
 
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
     private Ball nextBall;
 
     private boolean wasCounted[][];
-    private boolean wasFlagged[][];
+
+    private int shotsUntilShift;
 
     private Timer timer;
 
     private boolean didLose;
-    private int ballshiftcount;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
 
         fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
-        for (int r = 0; r < 3; r++) {
-            for (int c = 0; c < fixedBalls[0].length; c++) {
+
+        for(int r = 0; r < 3; r++) {
+            for(int c = 0; c < fixedBalls[0].length; c++) {
                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
             }
         }
@@ -31,7 +36,8 @@ public class BubbleGame extends JPanel {
         nextBall = new Ball(new Point(w/2, h-24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
-        wasFlagged = new boolean[fixedBalls.length][fixedBalls[0].length];
+
+        shotsUntilShift = 5;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -86,6 +92,7 @@ public class BubbleGame extends JPanel {
                 }
 
                 //Checks for collisions
+                outer:
                 for(int r = 0; r < fixedBalls.length ; r++) {
                     for(int c = 0; c < fixedBalls[0].length; c++) {
                         if(fixedBalls[r][c] != null && nextBall != null) {
@@ -99,12 +106,20 @@ public class BubbleGame extends JPanel {
                                 nextBall.setVelocity(0, 0);
                                 nextBall.randomizeColor();
 
-                                System.out.println("Count: " + countBalls(fixedBalls[r1][c1].getColor(), r1, c1));
-//                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) >= 3) {
-//                                    removeBalls(fixedBalls[r1][c1].getColor(), r1, c1);
-//                                }
-                                //STOP
-//                                shiftBalls();
+                                if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
+                                    removeBalls();
+                                }
+
+                                clearWasCounted();
+
+                                shotsUntilShift--;
+
+                                if(shotsUntilShift == 0) {
+                                    shotsUntilShift = 5;
+                                    shiftBalls();
+                                }
+
+                                break outer;
                             }
                         }
                     }
@@ -121,6 +136,8 @@ public class BubbleGame extends JPanel {
 
     private int countBalls(Color color, int r, int c) {
         int total = 1;
+
+        wasCounted[r][c] = true;
 
         total = countBalls(color, r-1, c-1, total);
         total = countBalls(color, r, c-1, total);
@@ -139,14 +156,22 @@ public class BubbleGame extends JPanel {
     private int countBalls(Color color, int r, int c, int total) {
         if(0 <= r && r < fixedBalls.length && 0 <= c && c < fixedBalls[0].length) {
             if(fixedBalls[r][c] != null) {
-                if(fixedBalls[r][c].getColor() == color) {
+                if(fixedBalls[r][c].getColor().equals(color)) {
                     if(!wasCounted[r][c]) {
                         total++;
 
                         wasCounted[r][c] = true;
 
-                        countBalls(color, r, c);
-                    }
+                        total = countBalls(color, r-1, c-1, total);
+                        total = countBalls(color, r, c-1, total);
+                        total = countBalls(color, r+1, c-1, total);
+
+                        total = countBalls(color, r-1, c, total);
+                        total = countBalls(color, r+1, c, total);
+
+                        total = countBalls(color, r-1, c+1, total);
+                        total = countBalls(color, r, c+1, total);
+                        total = countBalls(color, r+1, c+1, total);                    }
                 }
             }
         }
@@ -154,80 +179,64 @@ public class BubbleGame extends JPanel {
         return total;
     }
 
-//    private int countBalls(Color color, int r, int c) {
-//        int count = 0;
-//
-//        if(fixedBalls[r][c] != null) {
-//            System.out.println("NOT NULL");
-//
-//            if(fixedBalls[r][c].getColor() == color) {
-//                System.out.println("RIGHT COLOR");
-//
-//                if(!wasCounted[r][c]) {
-//                    System.out.println("COUNT++");
-//
-//                    count++;
-//
-//                    wasCounted[r][c] = true;
-//
-//                    count += countBalls(color, r-1, c-1);
-//                    count += countBalls(color, r, c-1);
-//                    count += countBalls(color, r+1, c-1);
-//
-//                    count += countBalls(color, r-1, c);
-//                    count += countBalls(color, r+1, c);
-//
-//                    count += countBalls(color, r-1, c+1);
-//                    count += countBalls(color, r, c+1);
-//                    count += countBalls(color, r+1, c+1);
-//                }
-//            }
-//        }
-//
-////        for(int row = r - 1; row <= r + 1; row++) {
-////            for(int col = c - 1; col <= c + 1; col++) {
-////                if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
-////
-////                }
-////            }
-////        }
-//
-//        System.out.println("RETURN");
-//        return count;
-//    }
+    private int removeBalls() {
+        int total = 0;
 
-    //Checks the balls immediately above and to the sides of the current ball. If any of them are the same color, remove them and call this method on them.
-    private int removeBalls(Color color, int r, int c) {
-        for(int row = r - 1; row <= r + 1; row++) {
-            for(int col = c - 1; col <= c + 1; col++) {
-                if(0 <= row && row < fixedBalls.length && 0 <= col && col < fixedBalls[0].length) {
-                    if(fixedBalls[row][col] != null) {
-                        if(fixedBalls[row][col].getColor() == color) {
-                            fixedBalls[row][col] = null;
+        for(int r = 0; r < wasCounted.length ; r++) {
+            for(int c = 0; c < wasCounted[0].length; c++) {
+                if(wasCounted[r][c]) {
+                    fixedBalls[r][c] = null;
+                    try {
+                        String hop = "Sounds/cork_pop_x.wav";
+                        InputStream in = new FileInputStream(hop);
+                        AudioStream audioStream = new AudioStream(in);
 
-                            removeBalls(color, row, col);
-                        }
+                        AudioPlayer.player.start(audioStream);
+                    }catch(Exception e){
+                        e.printStackTrace();
+                        System.out.println("Error loading sound file.");
                     }
+
+                    total++;
                 }
             }
         }
 
-        return 1;
+        return total;
+    }
+
+    private void clearWasCounted() {
+        for(int r = 0; r < wasCounted.length ; r++) {
+            for(int c = 0; c < wasCounted[0].length; c++) {
+                wasCounted[r][c] = false;
+            }
+        }
     }
 
     //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
+        for(int c = 0; c < fixedBalls[0].length; c++) {
+            if(fixedBalls[fixedBalls.length - 1][c] != null) {
+                didLose = true;
+                return;
+            }
+        }
 
         for(int r = fixedBalls.length - 1; r >= 0 ; r--) {
             for(int c = fixedBalls[0].length - 1; c >= 0; c--) {
-                if(fixedBalls[fixedBalls.length - 1][c] != null) {
-                    didLose = true;
-                    return;
+                if(r > 0) {
+                    if(fixedBalls[r][c] == null) {
+                        fixedBalls[r][c] = new Ball(r, c);
+                    }
+
+                    if(fixedBalls[r - 1][c] == null) {
+                        fixedBalls[r][c] = null;
+                    } else {
+                        moveBall(fixedBalls[r - 1][c], fixedBalls[r][c]);
+                    }
                 }
 
-                if(r > 0) {
-                    fixedBalls[r][c] = fixedBalls[r - 1][c];
-                } else {
+                if(r == 0) {
                     fixedBalls[r][c] = null;
                 }
             }
@@ -236,11 +245,34 @@ public class BubbleGame extends JPanel {
         addRow();
     }
 
+    private void moveBall(Ball from, Ball to) {
+        to.setColor(from.getColor());
+        to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
+
+        from = null;
+    }
+
     //Makes a random set of Balls in row 0 of fixedBalls
     private void addRow() {
         for(int c = 0; c < fixedBalls[0].length; c++) {
             fixedBalls[0][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE/2), 0, 0);
         }
+    }
+
+    private boolean win() { //edit this is the win condition
+        for(int r = 0; r<fixedBalls.length; r++){
+            for(int c = 0; c<fixedBalls[0].length; c++){
+                if(fixedBalls[r][c] != null){
+                    return false;
+                }
+            }
+        }
+
+        return true;
+    }
+
+    private boolean lose() { //edit this is the lose condition
+        return false;
     }
 
     public void paintComponent(Graphics g){
@@ -257,6 +289,40 @@ public class BubbleGame extends JPanel {
 
         if(nextBall != null) {
             nextBall.draw(g2);
+        }
+
+        if(win() == true){
+            Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
+            g2.setFont(myFont);
+            g2.setColor(Color.black);
+            g2.drawString("YOU WIN", 400, 25);
+            try {
+                String hop = "Sounds/cheer_long.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
+        }
+
+        if(didLose){
+            Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
+            g2.setFont(myFont);
+            g2.setColor(Color.black);
+            g2.drawString("YOU LOSE", 400, 25);
+            try {
+                String hop = "Sounds/Sad_Trombone-Joe_Lamb-665429450.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            }catch(Exception e){
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
         }
     }
 
