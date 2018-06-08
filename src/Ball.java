@@ -8,6 +8,15 @@ public class Ball {
 
     private double dx, dy;
 
+    public Ball(int r, int c) {
+        this.center = new Point.Double(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2);
+
+        this.dx = 0;
+        this.dy = 0;
+
+        this.color = new Color(0, 0, 0);
+    }
+
     public Ball(Point center, Color color, double dx, double dy) {
         this.center = new Point.Double(center.x, center.y);
 
@@ -31,7 +40,7 @@ public class Ball {
             Color green = new Color(128, 245, 166);
             this.color = green;
         } else if(num == 2) {
-            Color blue = new Color (181, 250, 255);
+            Color blue = new Color (147, 248, 255);
             this.color = blue;
         } else if(num == 3) {
             Color purple = new Color(251, 180, 255);
@@ -84,7 +93,7 @@ public class Ball {
             Color green = new Color(128, 245, 166);
             this.color = green;
         } else if(num == 2) {
-            Color blue = new Color (181, 250, 255);
+            Color blue = new Color (147, 248, 255);
             this.color = blue;
         } else if(num == 3) {
             Color purple = new Color(251, 180, 255);
