@@ -33,7 +33,7 @@ public class BubbleGame extends JPanel {
             }
         }
 
-        nextBall = new Ball(new Point(w/2, h-24 - Ball.SIZE), 0, 0);
+        nextBall = new Ball(new Point(800/2, 800-24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
