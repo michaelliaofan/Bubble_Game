@@ -26,7 +26,7 @@ public class BubbleGame extends JPanel {
     public BubbleGame(int w, int h) {
         setSize(w, h);
 
-        fixedBalls = new Ball[(h-24) / Ball.SIZE][w / Ball.SIZE];
+        fixedBalls = new Ball[(800-24) / Ball.SIZE][800 / Ball.SIZE];
 
         for(int r = 0; r < 3; r++) {
             for(int c = 0; c < fixedBalls[0].length; c++) {
@@ -343,7 +343,7 @@ public class BubbleGame extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        int width = 800;
+        int width = 1000;
         int height = 800;
         frame.setPreferredSize(new Dimension(width, height+24));
 
