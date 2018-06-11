@@ -7,7 +7,7 @@ public class Ball {
     private Color color;
     private Color shadow;
 
-    private double dx, dy;
+    protected double dx, dy;
 
     public Ball(int r, int c) {
         this.center = new Point.Double(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2);
@@ -118,26 +118,23 @@ public class Ball {
     public void setColor(Color color) {
         this.color = color;
     }
-
     public Color getShadow() {
         return shadow;
     }
     public void setShadow(Color shadow) {
         this.shadow = shadow;
     }
-
-
     public Point.Double getCenter() {
         return center;
     }
     public void setCenter(Point.Double center) {
         this.center = center;
     }
+    public double getVelocity() {
+        return Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2));
+    }
     public void setVelocity(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
-    }
-    public double getVelocity() {
-        return Math.sqrt(Math.pow(this.dx, 2) + Math.pow(this.dy, 2));
     }
 }
