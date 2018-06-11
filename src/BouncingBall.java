@@ -22,7 +22,11 @@ public class BouncingBall extends Ball {
     }
 
     public void bounce() {
-        updateDirection();
+        if(Math.random() < 0.5) {
+            dx = -dx;
+        } else {
+            dy = -dy;
+        }
 
         numBouncesRemaining--;
     }

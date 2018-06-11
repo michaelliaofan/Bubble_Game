@@ -67,7 +67,7 @@ public class Ball {
     }
 
     //Updates the Ball's direction if the Ball moves off screen
-    protected void updateDirection() {
+    private void updateDirection() {
         if(center.x - SIZE/2 <= SIZE || center.x + SIZE/2 >= BubbleGame.WIDTH - SIZE) {
             dx = - dx;
         } else if(center.y - SIZE/2 <= SIZE || center.y + SIZE/2 >= BubbleGame.HEIGHT - SIZE) {
