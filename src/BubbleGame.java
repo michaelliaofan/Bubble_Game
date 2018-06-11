@@ -20,7 +20,8 @@ public class BubbleGame extends JPanel {
     private Timer timer;
 
     private boolean didLose;
-    private int ballshiftcount;
+
+    private int shotsUntilShift;
 
     public BubbleGame(int w, int h) {
         setSize(w, h);
@@ -36,6 +37,8 @@ public class BubbleGame extends JPanel {
         nextBall = new Ball(new Point(w/2, h-24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
+
+        shotsUntilShift = 5;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -110,7 +113,12 @@ public class BubbleGame extends JPanel {
 
                                 clearWasCounted();
 
-                                shiftBalls();
+                                shotsUntilShift--;
+
+                                if(shotsUntilShift == 0) {
+                                    shotsUntilShift = 5;
+                                    shiftBalls();
+                                }
 
                                 break outer;
                             }
@@ -240,6 +248,7 @@ public class BubbleGame extends JPanel {
 
     private void moveBall(Ball from, Ball to) {
         to.setColor(from.getColor());
+        to.setShadow(from.getShadow());
         to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
 
         from = null;
@@ -268,57 +277,68 @@ public class BubbleGame extends JPanel {
         return false;
     }
 
-    public void paintComponent(Graphics g){
+    public void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics2D g2 = (Graphics2D)g;
+        Graphics2D g2 = (Graphics2D) g;
 
-        for(int i = 0; i < fixedBalls.length; i++) {
-            for(int j = 0; j < fixedBalls[0].length; j++) {
-                if(fixedBalls[i][j] != null) {
+        g2.setColor(new Color(34, 35, 32));
+        g2.fillRect(0, 0, getWidth(), getHeight());
+
+        for (int i = 0; i < fixedBalls.length; i++) {
+            for (int j = 0; j < fixedBalls[0].length; j++) {
+                if (fixedBalls[i][j] != null) {
                     fixedBalls[i][j].draw(g2);
                 }
             }
         }
 
-        if(nextBall != null) {
+        if (nextBall != null) {
             nextBall.draw(g2);
         }
 
-        if(win() == true){
-            Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
+        if (win() == true) {
+            Font myFont = new Font("Impact", Font.ITALIC | Font.BOLD, 100);
             g2.setFont(myFont);
-            g2.setColor(Color.black);
-            g2.drawString("YOU WIN", 400, 25);
-            try {
-                String hop = "Sounds/cheer_long.wav";
-                InputStream in = new FileInputStream(hop);
-                AudioStream audioStream = new AudioStream(in);
-
-                AudioPlayer.player.start(audioStream);
-            }catch(Exception e){
-                e.printStackTrace();
-                System.out.println("Error loading sound file.");
-            }
+            g2.setColor(Color.BLACK);
+            g2.drawString("YOU WON!", 200, 400);
+            Font myFont2 = new Font("Impact", Font.ITALIC | Font.BOLD, 90);
+            g2.setFont(myFont2);
+            g2.setColor(Color.WHITE);
+            g2.drawString("YOU  WON !", 200, 388);
+//            try {
+//                String hop = "Sounds/cheer_long.wav";
+//                InputStream in = new FileInputStream(hop);
+//                AudioStream audioStream = new AudioStream(in);
+//
+//                AudioPlayer.player.start(audioStream);
+//            }catch(Exception e){
+//                e.printStackTrace();
+//                System.out.println("Error loading sound file.");
+//            }
         }
 
-        if(didLose){
-            Font myFont = new Font("Serif", Font.ITALIC | Font.BOLD, 30);
+        if (didLose) {
+            Font myFont = new Font("Impact", Font.ITALIC | Font.BOLD, 100);
             g2.setFont(myFont);
-            g2.setColor(Color.black);
-            g2.drawString("YOU LOSE", 400, 25);
-            try {
-                String hop = "Sounds/Sad_Trombone-Joe_Lamb-665429450.wav";
-                InputStream in = new FileInputStream(hop);
-                AudioStream audioStream = new AudioStream(in);
-
-                AudioPlayer.player.start(audioStream);
-            }catch(Exception e){
-                e.printStackTrace();
-                System.out.println("Error loading sound file.");
-            }
+            g2.setColor(Color.BLACK);
+            g2.drawString("YOU LOSE!", 200, 400);
+            Font myFont2 = new Font("Impact", Font.ITALIC | Font.BOLD, 90);
+            g2.setFont(myFont2);
+            g2.setColor(Color.WHITE);
+            g2.drawString("YOU  LOSE !", 200, 388);
+//            try {
+//                String hop = "Sounds/Sad_Trombone-Joe_Lamb-665429450.wav";
+//                InputStream in = new FileInputStream(hop);
+//                AudioStream audioStream = new AudioStream(in);
+//
+//                AudioPlayer.player.start(audioStream);
+//            } catch(Exception e){
+//                e.printStackTrace();
+//                System.out.println("Error loading sound file.");
+//            }
+//        }
         }
     }
-
     //Main - no need to change
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
