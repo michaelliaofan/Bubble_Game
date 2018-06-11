@@ -11,8 +11,8 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class BubbleGame extends JPanel {
-    private static final int WIDTH = 1000;
-    private static final int HEIGHT = 800;
+    public static final int WIDTH = 1000;
+    public static final int HEIGHT = 800;
 
     private Ball[][] fixedBalls;
     private Ball nextBall;
@@ -91,7 +91,7 @@ public class BubbleGame extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(nextBall != null) {
-                    nextBall.update(WIDTH, HEIGHT);
+                    nextBall.update();
                 }
 
                 //Checks for collisions

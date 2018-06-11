@@ -63,22 +63,22 @@ public class Ball {
 
     //Updates the Ball's center per frame
     private void updatePosition() {
-        this.center.setLocation(this.center.getX()+dx, this.center.getY()+dy);
+        this.center.setLocation(this.center.getX() + dx, this.center.getY() + dy);
     }
 
     //Updates the Ball's direction if the Ball moves off screen
-    private void updateDirection(int width, int height) {
-        if(center.x - SIZE/2 <= SIZE || center.x + SIZE/2 >= width - SIZE) {
+    protected void updateDirection() {
+        if(center.x - SIZE/2 <= SIZE || center.x + SIZE/2 >= BubbleGame.WIDTH - SIZE) {
             dx = - dx;
-        } else if(center.y - SIZE/2 <= SIZE || center.y + SIZE/2 >= width - SIZE) {
+        } else if(center.y - SIZE/2 <= SIZE || center.y + SIZE/2 >= BubbleGame.HEIGHT - SIZE) {
             dy = - dy;
         }
     }
 
     //Updates the Ball's direction and center
-    public void update(int width, int height) {
+    public void update() {
         updatePosition();
-        updateDirection(width, height);
+        updateDirection();
     }
 
     public void randomizeColor() {
