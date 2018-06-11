@@ -284,6 +284,9 @@ public class BubbleGame extends JPanel {
         g2.setColor(new Color(34, 35, 32));
         g2.fillRect(0, 0, getWidth(), getHeight());
 
+        g2.setColor(new Color (255, 176, 221));
+        g2.fillRect(800, 0, 200, 800);
+
         for (int i = 0; i < fixedBalls.length; i++) {
             for (int j = 0; j < fixedBalls[0].length; j++) {
                 if (fixedBalls[i][j] != null) {
