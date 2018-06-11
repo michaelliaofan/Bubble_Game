@@ -285,6 +285,8 @@ public class BubbleGame extends JPanel {
         g2.setColor(new Color (255, 176, 221));
         g2.fillRect(800, 0, 200, 800);
 
+        //g2.
+
         for (int i = 0; i < fixedBalls.length; i++) {
             for (int j = 0; j < fixedBalls[0].length; j++) {
                 if (fixedBalls[i][j] != null) {
@@ -344,7 +346,7 @@ public class BubbleGame extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        int width = 800;
+        int width = 1000;
         int height = 800;
         frame.setPreferredSize(new Dimension(width, height+24));
 
