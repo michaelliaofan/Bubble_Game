@@ -9,7 +9,6 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.util.ArrayList;
 
 public class BubbleGame extends JPanel {
     private Ball[][] fixedBalls;
@@ -28,8 +27,8 @@ public class BubbleGame extends JPanel {
 
         fixedBalls = new Ball[(800-24) / Ball.SIZE][800 / Ball.SIZE];
 
-        for(int r = 0; r < 3; r++) {
-            for(int c = 0; c < fixedBalls[0].length; c++) {
+        for(int r = 1; r < 4; r++) {
+            for(int c = 1; c < fixedBalls[0].length - 1; c++) {
                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
             }
         }
@@ -214,7 +213,6 @@ public class BubbleGame extends JPanel {
         }
     }
 
-    //TODO: Move all Balls in fixedBalls down one row. If a Ball is moved out of bounds, make didLose = true and stop the method
     private void shiftBalls() {
         for(int c = 0; c < fixedBalls[0].length; c++) {
             if(fixedBalls[fixedBalls.length - 1][c] != null) {
@@ -223,9 +221,9 @@ public class BubbleGame extends JPanel {
             }
         }
 
-        for(int r = fixedBalls.length - 1; r >= 0 ; r--) {
+        for(int r = fixedBalls.length - 1; r > 0 ; r--) {
             for(int c = fixedBalls[0].length - 1; c >= 0; c--) {
-                if(r > 0) {
+                if(r > 1) {
                     if(fixedBalls[r][c] == null) {
                         fixedBalls[r][c] = new Ball(r, c);
                     }
@@ -237,7 +235,7 @@ public class BubbleGame extends JPanel {
                     }
                 }
 
-                if(r == 0) {
+                if(r == 1) {
                     fixedBalls[r][c] = null;
                 }
             }
@@ -246,19 +244,19 @@ public class BubbleGame extends JPanel {
         addRow();
     }
 
+    //Makes a random set of Balls in row 1 of fixedBalls
+    private void addRow() {
+        for(int c = 1; c < fixedBalls[0].length - 1; c++) {
+            fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0);
+        }
+    }
+
     private void moveBall(Ball from, Ball to) {
         to.setColor(from.getColor());
         to.setShadow(from.getShadow());
         to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
 
         from = null;
-    }
-
-    //Makes a random set of Balls in row 0 of fixedBalls
-    private void addRow() {
-        for(int c = 0; c < fixedBalls[0].length; c++) {
-            fixedBalls[0][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE/2), 0, 0);
-        }
     }
 
     private boolean win() { //edit this is the win condition
@@ -343,7 +341,7 @@ public class BubbleGame extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        int width = 1000;
+        int width = 800;
         int height = 800;
         frame.setPreferredSize(new Dimension(width, height+24));
 
