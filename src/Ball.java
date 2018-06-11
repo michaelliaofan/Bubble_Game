@@ -117,15 +117,12 @@ public class Ball {
     public void setColor(Color color) {
         this.color = color;
     }
-
     public Color getShadow() {
         return shadow;
     }
     public void setShadow(Color shadow) {
         this.shadow = shadow;
     }
-
-
     public Point.Double getCenter() {
         return center;
     }
