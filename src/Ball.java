@@ -16,6 +16,7 @@ public class Ball {
         this.dy = 0;
 
         this.color = new Color(0, 0, 0);
+
     }
 
     public Ball(Point center, Color color, Color shadow, double dx, double dy) {
@@ -117,12 +118,15 @@ public class Ball {
     public void setColor(Color color) {
         this.color = color;
     }
+
     public Color getShadow() {
         return shadow;
     }
     public void setShadow(Color shadow) {
         this.shadow = shadow;
     }
+
+
     public Point.Double getCenter() {
         return center;
     }
