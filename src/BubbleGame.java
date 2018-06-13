@@ -102,9 +102,9 @@ public class BubbleGame extends JPanel {
                             if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
                                 //Bouncing ball
                                 if(nextBall instanceof BouncingBall) {
-                                    fixedBalls[r][c] = null;
-
                                     ((BouncingBall) nextBall).bounce();
+
+                                    fixedBalls[r][c] = null;
 
                                     if(((BouncingBall) nextBall).getNumBouncesRemaining() <= 0) {
                                         ((BouncingBall) nextBall).setNumBouncesRemaining(3);
