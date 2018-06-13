@@ -13,7 +13,7 @@ import java.io.InputStream;
 public class BubbleGame extends JPanel {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 800;
-
+//
     private Ball[][] fixedBalls;
     private Ball nextBall;
 
