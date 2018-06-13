@@ -88,7 +88,7 @@ public class BubbleGame extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(nextBall != null) {
-                    nextBall.update(w, h);
+                    nextBall.update();
                 }
 
                 //Checks for collisions
