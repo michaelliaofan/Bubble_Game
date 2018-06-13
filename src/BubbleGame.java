@@ -88,7 +88,7 @@ public class BubbleGame extends JPanel {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if(nextBall != null) {
-                    nextBall.update(w, h);
+                    nextBall.update();
                 }
 
                 //Checks for collisions
@@ -282,18 +282,21 @@ public class BubbleGame extends JPanel {
         g2.setColor(new Color(34, 35, 32));
         g2.fillRect(0, 0, getWidth(), getHeight());
 
-        g2.setColor(new Color (255, 176, 221));
+        //g2.setColor(new Color (255, 176, 221));
         g2.fillRect(800, 0, 200, 800);
 
-        g2.setColor(new Color(133, 245, 191));
+        g2.setColor(new Color(108, 204, 211));
         g2.fillRect(0, 0, 1000, 50);
         g2.fillRect(0, 0, 50, 800);
         g2.fillRect(0, 750, 1000, 50);
         g2.fillRect(750, 0, 50, 800);
         g2.fillRect(950, 0, 50, 800);
 
-        g2.setColor(new Color(106, 180, 146));
+        g2.setColor(new Color(250, 251, 255));
+        g2.setStroke(new BasicStroke(10));
         g2.drawRect(45, 45, 710, 710);
+        g2.drawRect(845, 45, 50, 710);
+
 
 
         for (int i = 0; i < fixedBalls.length; i++) {
