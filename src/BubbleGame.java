@@ -295,8 +295,12 @@ public class BubbleGame extends JPanel {
         g2.setColor(new Color(250, 251, 255));
         g2.setStroke(new BasicStroke(10));
         g2.drawRect(45, 45, 710, 710);
-        g2.drawRect(845, 45, 50, 710);
+        g2.drawRect(800, 45, 150, 710);
 
+        Font font = new Font("Impact", Font.ITALIC | Font.BOLD, 50);
+        g2.setFont(font);
+        g2.setColor(Color.WHITE);
+        g2.drawString("THE", 810, 50);
 
 
         for (int i = 0; i < fixedBalls.length; i++) {
