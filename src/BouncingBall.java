@@ -22,6 +22,8 @@ public class BouncingBall extends Ball {
     }
 
     public void bounce() {
+
+
         if(Math.random() < 0.5) {
             dx = -dx;
         } else {
