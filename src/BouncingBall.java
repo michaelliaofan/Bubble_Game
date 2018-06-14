@@ -34,6 +34,9 @@ public class BouncingBall extends Ball {
             this.dx = -this.dx;
         }
 
+        this.update();
+        this.update();
+
         numBouncesRemaining--;
     }
 

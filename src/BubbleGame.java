@@ -10,7 +10,7 @@ import java.io.InputStream;
 public class BubbleGame extends JPanel {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 800;
-//
+
     private Ball[][] fixedBalls;
     private Ball nextBall;
 
@@ -33,7 +33,7 @@ public class BubbleGame extends JPanel {
             }
         }
 
-        nextBall = new BouncingBall(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
+        nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
@@ -85,6 +85,7 @@ public class BubbleGame extends JPanel {
 
             }
         });
+
         addKeyListener(new KeyListener() {
             @Override
             public void keyTyped(KeyEvent e) {
@@ -95,11 +96,11 @@ public class BubbleGame extends JPanel {
                 if (e.getKeyCode() == KeyEvent.VK_SPACE) { //pause game
                     if (timer.isRunning())
                         timer.stop();
-
                     else
                         timer.start();
                 }
             }
+
             @Override
             public void keyReleased(KeyEvent e) {
 
@@ -403,7 +404,7 @@ public class BubbleGame extends JPanel {
 //        }
         }
     }
-    //Main - no need to change
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
