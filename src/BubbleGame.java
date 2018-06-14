@@ -93,11 +93,17 @@ public class BubbleGame extends JPanel {
             }
 
             public void keyPressed(KeyEvent e) {
-                if (e.getKeyCode() == KeyEvent.VK_SPACE) { //pause game
-                    if (timer.isRunning())
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) { //pause game
+                    if(timer.isRunning())
                         timer.stop();
                     else
                         timer.start();
+                } else if(e.getKeyCode() == KeyEvent.VK_1) {
+                    nextBall = new Ball(0, 0);
+                    resetNextBall();
+                } else if(e.getKeyCode() == KeyEvent.VK_2) {
+                    nextBall = new BouncingBall(0, 0);
+                    resetNextBall();
                 }
                 if(e.getKeyCode() == KeyEvent.VK_R){
                     didLose = false;
