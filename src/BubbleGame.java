@@ -280,16 +280,16 @@ public class BubbleGame extends JPanel {
                             }
 
                             clearWasCounted();
-
-                            shotsUntilShift--;
-
-                            if(shotsUntilShift == 0) {
-                                shotsUntilShift = 5;
-                                shiftBalls();
-                            }
-
-                            break outer;
                         }
+
+                        shotsUntilShift--;
+
+                        if(shotsUntilShift == 0) {
+                            shotsUntilShift = 5;
+                            shiftBalls();
+                        }
+
+                        break outer;
                     }
                 }
             }
