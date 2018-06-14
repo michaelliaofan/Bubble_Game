@@ -25,7 +25,7 @@ public class BouncingBall extends Ball {
         double dx = otherCent.getX() - getCenter().getX();
         double dy = otherCent.getY() - getCenter().getY();
 
-        if(dx == dy) {
+        if(Math.abs(dx - dy) / Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2)) <= 0.1) {
             this.dx = -this.dx;
             this.dy = -this.dy;
         } else if(dx > dy) {

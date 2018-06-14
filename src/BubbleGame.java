@@ -182,7 +182,8 @@ public class BubbleGame extends JPanel {
                         AudioStream audioStream = new AudioStream(in);
 
                         AudioPlayer.player.start(audioStream);
-                    }catch(Exception e){
+
+                    } catch(Exception e){
                         e.printStackTrace();
                         System.out.println("Error loading sound file.");
                     }
