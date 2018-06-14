@@ -52,24 +52,26 @@ public class BubbleGame extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(-0.1 <= nextBall.getVelocity() && nextBall.getVelocity() <= 0.1) {
-                    Point initCenter = new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE);
+                if(timer.isRunning()) {
+                    if (-0.1 <= nextBall.getVelocity() && nextBall.getVelocity() <= 0.1) {
+                        Point initCenter = new Point(WIDTH / 2, HEIGHT - 24 - Ball.SIZE);
 
-                    double mouseX = e.getX();
-                    double mouseY = e.getY();
+                        double mouseX = e.getX();
+                        double mouseY = e.getY();
 
-                    double dx = mouseX - initCenter.x;
-                    double dy = mouseY - initCenter.y;
+                        double dx = mouseX - initCenter.x;
+                        double dy = mouseY - initCenter.y;
 
-                    double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                        double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
-                    dx *= 10;
-                    dy *= 10;
+                        dx *= 10;
+                        dy *= 10;
 
-                    dx /= dxy;
-                    dy /= dxy;
+                        dx /= dxy;
+                        dy /= dxy;
 
-                    nextBall.setVelocity(dx, dy);
+                        nextBall.setVelocity(dx, dy);
+                    }
                 }
             }
 
