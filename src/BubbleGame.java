@@ -111,52 +111,7 @@ public class BubbleGame extends JPanel {
                     nextBall.update();
                 }
 
-                //Checks for collisions
-                outer:
-                for(int r = 0; r < fixedBalls.length ; r++) {
-                    for(int c = 0; c < fixedBalls[0].length; c++) {
-                        if(fixedBalls[r][c] != null && nextBall != null) {
-                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
-                                //Bouncing ball
-                                if(nextBall instanceof BouncingBall) {
-                                    ((BouncingBall) nextBall).bounce();
-
-                                    fixedBalls[r][c] = null;
-
-                                    if(((BouncingBall) nextBall).getNumBouncesRemaining() <= 0) {
-                                        ((BouncingBall) nextBall).setNumBouncesRemaining(3);
-                                        resetNextBall();
-                                    }
-                                }
-
-                                //Normal ball
-                                else {
-                                    int r1 = (int)(nextBall.getCenter().getY()/Ball.SIZE);
-                                    int c1 = (int)(nextBall.getCenter().getX()/Ball.SIZE);
-
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0);
-
-                                    resetNextBall();
-
-                                    if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
-                                        removeBalls();
-                                    }
-
-                                    clearWasCounted();
-
-                                    shotsUntilShift--;
-
-                                    if(shotsUntilShift == 0) {
-                                        shotsUntilShift = 5;
-                                        shiftBalls();
-                                    }
-
-                                    break outer;
-                                }
-                            }
-                        }
-                    }
-                }
+                handleCollisions();
 
                 repaint();
             }
@@ -310,8 +265,52 @@ public class BubbleGame extends JPanel {
         return true;
     }
 
-    private boolean lose() { //edit this is the lose condition
-        return false;
+    private void handleCollisions() {
+        outer:
+        for(int r = 0; r < fixedBalls.length ; r++) {
+            for(int c = 0; c < fixedBalls[0].length; c++) {
+                if(fixedBalls[r][c] != null && nextBall != null) {
+                    if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
+                        //Bouncing ball
+                        if(nextBall instanceof BouncingBall) {
+                            ((BouncingBall) nextBall).bounce(fixedBalls[r][c].getCenter());
+
+                            fixedBalls[r][c] = null;
+
+                            if(((BouncingBall) nextBall).getNumBouncesRemaining() <= 0) {
+                                ((BouncingBall) nextBall).setNumBouncesRemaining(3);
+                                resetNextBall();
+                            }
+                        }
+
+                        //Normal ball
+                        else {
+                            int r1 = (int)(nextBall.getCenter().getY()/Ball.SIZE);
+                            int c1 = (int)(nextBall.getCenter().getX()/Ball.SIZE);
+
+                            fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0);
+
+                            resetNextBall();
+
+                            if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
+                                removeBalls();
+                            }
+
+                            clearWasCounted();
+                        }
+
+                        shotsUntilShift--;
+
+                        if(shotsUntilShift == 0) {
+                            shotsUntilShift = 5;
+                            shiftBalls();
+                        }
+
+                        break outer;
+                    }
+                }
+            }
+        }
     }
 
     public void paintComponent(Graphics g) {
