@@ -171,6 +171,32 @@ public class BubbleGame extends JPanel {
 
                     isIndented = false;
                 }
+                if(e.getKeyCode() == KeyEvent.VK_H){
+                    fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
+
+                    for(int r = 1; r < 6; r++) {
+                        for(int c = 1; c < fixedBalls[0].length - 1; c++) {
+                            if(isIndented) {
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                            } else {
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                            }
+                        }
+
+                        isIndented = !isIndented;
+                    }
+
+                    nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0, false);
+
+                    wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
+
+                    didLose = false;
+                    didWin = false;
+
+                    timeUntilShift = 1000;
+
+                    isIndented = false;
+                }
 
             }
 
