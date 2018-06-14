@@ -119,7 +119,7 @@ public class BubbleGame extends JPanel {
                     nextBall = new BouncingBall(0, 0);
                     resetNextBall();
                 }
-                if(e.getKeyCode() == KeyEvent.VK_R){
+                if(e.getKeyCode() == KeyEvent.VK_E){
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
                     for(int r = 1; r < 4; r++) {
@@ -145,6 +145,33 @@ public class BubbleGame extends JPanel {
 
                     isIndented = false;
                 }
+                if(e.getKeyCode() == KeyEvent.VK_M){
+                    fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
+
+                    for(int r = 1; r <5; r++) {
+                        for(int c = 1; c < fixedBalls[0].length - 1; c++) {
+                            if(isIndented) {
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                            } else {
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                            }
+                        }
+
+                        isIndented = !isIndented;
+                    }
+
+                    nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0, false);
+
+                    wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
+
+                    didLose = false;
+                    didWin = false;
+
+                    timeUntilShift = 2000;
+
+                    isIndented = false;
+                }
+
             }
 
             @Override
@@ -406,7 +433,6 @@ public class BubbleGame extends JPanel {
         g2.drawString("GAME", 825, 200);
 
 
-
         for (int i = 0; i < fixedBalls.length; i++) {
             for (int j = 0; j < fixedBalls[0].length; j++) {
                 if (fixedBalls[i][j] != null) {
@@ -428,16 +454,16 @@ public class BubbleGame extends JPanel {
             g2.setFont(myFont2);
             g2.setColor(Color.WHITE);
             g2.drawString("YOU  WON !", 200, 388);
-//            try {
-//                String hop = "Sounds/cheer_long.wav";
-//                InputStream in = new FileInputStream(hop);
-//                AudioStream audioStream = new AudioStream(in);
-//
-//                AudioPlayer.player.start(audioStream);
-//            }catch(Exception e){
-//                e.printStackTrace();
-//                System.out.println("Error loading sound file.");
-//            }
+            try {
+                String hop = "Sounds/cheer_long.wav";
+                InputStream in = new FileInputStream(hop);
+                AudioStream audioStream = new AudioStream(in);
+
+                AudioPlayer.player.start(audioStream);
+            } catch (Exception e) {
+                e.printStackTrace();
+                System.out.println("Error loading sound file.");
+            }
         }
 
         if (didLose) {
@@ -462,6 +488,7 @@ public class BubbleGame extends JPanel {
 //        }
         }
     }
+
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
