@@ -19,6 +19,7 @@ public class BubbleGame extends JPanel {
     private Timer timer;
 
     private boolean didLose;
+    private boolean didWin;
 
     private int timeUntilShift;
 
@@ -106,6 +107,8 @@ public class BubbleGame extends JPanel {
                     resetNextBall();
                 }
                 if(e.getKeyCode() == KeyEvent.VK_R){
+                    didLose = false;
+                    didWin = false;
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
                     for(int r = 1; r < 4; r++) {
@@ -153,6 +156,7 @@ public class BubbleGame extends JPanel {
         timer.start();
 
         didLose = false;
+        didWin = false;
     }
 
     private int countBalls(Color color, int r, int c) {
@@ -218,6 +222,7 @@ public class BubbleGame extends JPanel {
                         e.printStackTrace();
                         System.out.println("Error loading sound file.");
                     }
+                    wincheck();
 
                     total++;
                 }
@@ -287,16 +292,17 @@ public class BubbleGame extends JPanel {
         nextBall.randomizeColor();
     }
 
-    private boolean win() { //edit this is the win condition
+    private void wincheck() { //edit this is the win condition
+        didWin = true;
+
         for(int r = 0; r<fixedBalls.length; r++){
             for(int c = 0; c<fixedBalls[0].length; c++){
                 if(fixedBalls[r][c] != null){
-                    return false;
+                    didWin = false;
                 }
             }
         }
 
-        return true;
     }
 
     private void handleCollisions() {
@@ -384,7 +390,7 @@ public class BubbleGame extends JPanel {
             nextBall.draw(g2);
         }
 
-        if (win() == true) {
+        if (didWin == true) {
             Font myFont = new Font("Impact", Font.ITALIC | Font.BOLD, 100);
             g2.setFont(myFont);
             g2.setColor(Color.BLACK);
