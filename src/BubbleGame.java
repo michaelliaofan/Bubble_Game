@@ -30,25 +30,28 @@ public class BubbleGame extends JPanel {
 
         fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
-        isIndented = false;
-
         for(int r = 1; r < 4; r++) {
             for(int c = 1; c < fixedBalls[0].length - 1; c++) {
                 if(isIndented) {
-                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
                 } else {
-                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
                 }
             }
 
             isIndented = !isIndented;
         }
 
-        nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
+        nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0, false);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
+        didLose = false;
+        didWin = false;
+
         timeUntilShift = 3000;
+
+        isIndented = false;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -117,23 +120,30 @@ public class BubbleGame extends JPanel {
                     resetNextBall();
                 }
                 if(e.getKeyCode() == KeyEvent.VK_R){
-                    didLose = false;
-                    didWin = false;
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
                     for(int r = 1; r < 4; r++) {
                         for(int c = 1; c < fixedBalls[0].length - 1; c++) {
-                            fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                            if(isIndented) {
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                            } else {
+                                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                            }
                         }
+
+                        isIndented = !isIndented;
                     }
 
-                    nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
+                    nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0, false);
 
                     wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
+                    didLose = false;
+                    didWin = false;
+
                     timeUntilShift = 3000;
 
-                    didLose = false;
+                    isIndented = false;
                 }
             }
 
@@ -284,9 +294,9 @@ public class BubbleGame extends JPanel {
     private void addRow() {
         for(int c = 1; c < fixedBalls[0].length - 1; c++) {
             if(isIndented) {
-                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0);
+                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0, isIndented);
             } else {
-                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, Ball.SIZE * 3/2), 0, 0);
+                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, Ball.SIZE * 3/2), 0, 0, isIndented);
             }
         }
 
@@ -343,7 +353,11 @@ public class BubbleGame extends JPanel {
                             int r1 = (int)(nextBall.getCenter().getY()/Ball.SIZE);
                             int c1 = (int)(nextBall.getCenter().getX()/Ball.SIZE);
 
-                            fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0);
+                            if(fixedBalls[r1 - 1][c1].isIndented()) {
+                                fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
+                            } else {
+                                fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+                            }
 
                             resetNextBall();
 
