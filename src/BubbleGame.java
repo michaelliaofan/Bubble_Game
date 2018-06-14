@@ -99,6 +99,20 @@ public class BubbleGame extends JPanel {
                     else
                         timer.start();
                 }
+                if(e.getKeyCode() == KeyEvent.VK_R){
+                    didLose = false;
+                    fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
+
+                    for(int r = 1; r < 4; r++) {
+                        for(int c = 1; c < fixedBalls[0].length - 1; c++) {
+                            fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                        }
+                    }
+
+
+
+
+                }
             }
 
             @Override
