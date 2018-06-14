@@ -23,22 +23,32 @@ public class BubbleGame extends JPanel {
 
     private int timeUntilShift;
 
+    private boolean isIndented;
+
     public BubbleGame() {
         setSize(WIDTH, HEIGHT);
 
         fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
+        isIndented = false;
+
         for(int r = 1; r < 4; r++) {
             for(int c = 1; c < fixedBalls[0].length - 1; c++) {
-                fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                if(isIndented) {
+                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                } else {
+                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0);
+                }
             }
+
+            isIndented = !isIndented;
         }
 
         nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
-        timeUntilShift = 10000;
+        timeUntilShift = 3000;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -121,7 +131,7 @@ public class BubbleGame extends JPanel {
 
                     wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
-                    timeUntilShift = 10000;
+                    timeUntilShift = 3000;
 
                     didLose = false;
                 }
@@ -145,7 +155,7 @@ public class BubbleGame extends JPanel {
                 timeUntilShift -= 10;
 
                 if(timeUntilShift <= 0) {
-                    timeUntilShift = 10000;
+                    timeUntilShift = 3000;
                     shiftBalls();
                 }
 
@@ -271,11 +281,16 @@ public class BubbleGame extends JPanel {
         addRow();
     }
 
-    //Makes a random set of Balls in row 1 of fixedBalls
     private void addRow() {
         for(int c = 1; c < fixedBalls[0].length - 1; c++) {
-            fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0);
+            if(isIndented) {
+                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0);
+            } else {
+                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, Ball.SIZE * 3/2), 0, 0);
+            }
         }
+
+        isIndented = !isIndented;
     }
 
     private void moveBall(Ball from, Ball to) {
