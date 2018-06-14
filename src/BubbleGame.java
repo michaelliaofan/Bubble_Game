@@ -106,7 +106,6 @@ public class BubbleGame extends JPanel {
                     resetNextBall();
                 }
                 if(e.getKeyCode() == KeyEvent.VK_R){
-                    didLose = false;
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
                     for(int r = 1; r < 4; r++) {
@@ -115,9 +114,13 @@ public class BubbleGame extends JPanel {
                         }
                     }
 
+                    nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
 
+                    wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
+                    shotsUntilShift = 5;
 
+                    didLose = false;
                 }
             }
 
