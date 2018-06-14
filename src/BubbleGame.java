@@ -20,7 +20,7 @@ public class BubbleGame extends JPanel {
 
     private boolean didLose;
 
-    private int shotsUntilShift;
+    private int timeUntilShift;
 
     public BubbleGame() {
         setSize(WIDTH, HEIGHT);
@@ -37,7 +37,7 @@ public class BubbleGame extends JPanel {
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
-        shotsUntilShift = 5;
+        timeUntilShift = 10000;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -118,7 +118,7 @@ public class BubbleGame extends JPanel {
 
                     wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
-                    shotsUntilShift = 5;
+                    timeUntilShift = 10000;
 
                     didLose = false;
                 }
@@ -138,6 +138,13 @@ public class BubbleGame extends JPanel {
                 }
 
                 handleCollisions();
+
+                timeUntilShift -= 10;
+
+                if(timeUntilShift <= 0) {
+                    timeUntilShift = 10000;
+                    shiftBalls();
+                }
 
                 repaint();
             }
@@ -324,13 +331,6 @@ public class BubbleGame extends JPanel {
                             }
 
                             clearWasCounted();
-                        }
-
-                        shotsUntilShift--;
-
-                        if(shotsUntilShift == 0) {
-                            shotsUntilShift = 5;
-                            shiftBalls();
                         }
 
                         break outer;
