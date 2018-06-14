@@ -16,6 +16,7 @@ public class BubbleGame extends JPanel {
 //
     private Ball[][] fixedBalls;
     private Ball nextBall;
+    private int points;
 
     private boolean wasCounted[][];
 
@@ -123,6 +124,7 @@ public class BubbleGame extends JPanel {
 
                                     if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
                                         removeBalls();
+                                        points++;
                                     }
 
                                     clearWasCounted();
@@ -187,7 +189,11 @@ public class BubbleGame extends JPanel {
 
                         total = countBalls(color, r-1, c+1, total);
                         total = countBalls(color, r, c+1, total);
-                        total = countBalls(color, r+1, c+1, total);                    }
+                        total = countBalls(color, r+1, c+1, total);
+
+
+
+                    }
                 }
             }
         }
@@ -326,6 +332,17 @@ public class BubbleGame extends JPanel {
         g2.drawString("THE", 843, 100);
         g2.drawString("BUBBLE", 812, 150);
         g2.drawString("GAME", 825, 200);
+
+        Font thefont = new Font("Impact", Font.BOLD, 25);
+        g2.setFont(thefont);
+        g2.drawString("Points : " + points, 820, 260);
+
+
+
+        g2.setStroke(new BasicStroke(8));
+        g2.drawRect(800, 217, 150, 1);
+
+
 
 
 
