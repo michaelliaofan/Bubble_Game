@@ -195,16 +195,22 @@ public class BubbleGame extends JPanel {
 
         wasCounted[r][c] = true;
 
-        total = countBalls(color, r-1, c-1, total);
         total = countBalls(color, r, c-1, total);
-        total = countBalls(color, r+1, c-1, total);
-
-        total = countBalls(color, r-1, c, total);
-        total = countBalls(color, r+1, c, total);
-
-        total = countBalls(color, r-1, c+1, total);
         total = countBalls(color, r, c+1, total);
-        total = countBalls(color, r+1, c+1, total);
+
+        if(fixedBalls[r][c].isIndented()) {
+            total = countBalls(color, r+1, c, total);
+            total = countBalls(color, r+1, c+1, total);
+
+            total = countBalls(color, r-1, c, total);
+            total = countBalls(color, r-1, c+1, total);
+        } else {
+            total = countBalls(color, r+1, c-1, total);
+            total = countBalls(color, r+1, c, total);
+
+            total = countBalls(color, r-1, c-1, total);
+            total = countBalls(color, r-1, c, total);
+        }
 
         return total;
     }
