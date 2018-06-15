@@ -404,37 +404,37 @@ public class BubbleGame extends JPanel {
         Graphics2D g2 = (Graphics2D) g;
 
         g2.setColor(new Color(34, 35, 32));
-        g2.fillRect(0, 0, getWidth(), getHeight());
+        g2.fillRect(0, 0, getWidth() +25, getHeight()); //big black square
 
         //g2.setColor(new Color (255, 176, 221));
-        g2.fillRect(800, 0, 200, 800);
+        g2.fillRect(825, 0, 200, 800); //small black square
 
 
         g2.setColor(new Color(108, 204, 211));
-        g2.fillRect(0, 0, 1000, 50);
+        g2.fillRect(0, 0, 1025, 50);
         g2.fillRect(0, 0, 50, 800);
-        g2.fillRect(0, 750, 1000, 50);
-        g2.fillRect(750, 0, 50, 800);
-        g2.fillRect(950, 0, 50, 800);
+        g2.fillRect(0, 750, 1025, 50);
+        g2.fillRect(775, 0, 50, 800); //
+        g2.fillRect(1000, 0, 50, 800);
 
         g2.setColor(new Color(250, 251, 255));
         g2.setStroke(new BasicStroke(10));
-        g2.drawRect(45, 45, 710, 710);
-        g2.drawRect(800, 45, 150, 710);
+        g2.drawRect(45, 45, 735, 710);
+        g2.drawRect(825, 45, 175, 710); //
 
         Font font = new Font("Impact", Font.BOLD, 40);
         g2.setFont(font);
         g2.setColor(Color.WHITE);
-        g2.drawString("THE", 843, 100);
-        g2.drawString("BUBBLE", 812, 150);
-        g2.drawString("GAME", 825, 200);
+        g2.drawString("THE", 883, 100); //+25
+        g2.drawString("BUBBLE", 847, 150); //+50
+        g2.drawString("GAME", 865, 200);
 
         Font thefont = new Font("Impact", Font.BOLD, 25);
         g2.setFont(thefont);
-        g2.drawString("Points : " + points, 820, 260);
+        g2.drawString("Points : " + points, 840, 260);
 
         g2.setStroke(new BasicStroke(8));
-        g2.drawRect(800, 217, 150, 1);
+        g2.drawRect(825, 217, 168, 1);
 
 
 
@@ -497,7 +497,7 @@ public class BubbleGame extends JPanel {
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);
-        frame.setPreferredSize(new Dimension(WIDTH + 200, HEIGHT+24));
+        frame.setPreferredSize(new Dimension(WIDTH + 250, HEIGHT+24));
 
         JPanel panel = new BubbleGame();
         panel.setFocusable(true);
