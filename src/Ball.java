@@ -121,7 +121,7 @@ public class Ball {
 
     @Override
     public String toString() {
-        return "" + isIndented;
+        return "ind: " + isIndented + "; " + center;
     }
 
     //Getters/setters - no need to change
@@ -152,5 +152,8 @@ public class Ball {
     }
     public boolean isIndented() {
         return isIndented;
+    }
+    public void setIndented(boolean indented) {
+        isIndented = indented;
     }
 }

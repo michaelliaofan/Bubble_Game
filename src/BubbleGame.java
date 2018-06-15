@@ -1,5 +1,6 @@
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
+import javax.swing.JOptionPane;
 
 import javax.swing.*;
 import java.awt.*;
@@ -32,12 +33,14 @@ public class BubbleGame extends JPanel {
 
         fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
+        isIndented = false;
+
         for(int r = 1; r < 4; r++) {
             for(int c = 1; c < fixedBalls[0].length - 1; c++) {
                 if(isIndented) {
-                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
-                } else {
                     fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
+                } else {
+                    fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
                 }
             }
 
@@ -52,8 +55,6 @@ public class BubbleGame extends JPanel {
         didWin = false;
 
         timeUntilShift = 3000;
-
-        isIndented = false;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -109,11 +110,8 @@ public class BubbleGame extends JPanel {
             }
 
             public void keyPressed(KeyEvent e) {
-                if(e.getKeyCode() == KeyEvent.VK_SPACE) { //pause game
-                    if(timer.isRunning())
-                        timer.stop();
-                    else
-                        timer.start();
+                if(e.getKeyCode() == KeyEvent.VK_SPACE) {
+                    pause();
                 } else if(e.getKeyCode() == KeyEvent.VK_1) {
                     nextBall = new Ball(0, 0);
                     resetNextBall();
@@ -123,7 +121,9 @@ public class BubbleGame extends JPanel {
                 } else if(e.getKeyCode() == KeyEvent.VK_R){
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
-                    for(int r = 1; r < 5; r++) {
+                    isIndented = false;
+
+                    for(int r = 1; r < 4; r++) {
                         for(int c = 1; c < fixedBalls[0].length - 1; c++) {
                             if(isIndented) {
                                 fixedBalls[r][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), 0, 0, isIndented);
@@ -142,9 +142,15 @@ public class BubbleGame extends JPanel {
                     didLose = false;
                     didWin = false;
 
-                    timeUntilShift = 2000;
+                    timeUntilShift = 3000;
+                } else if(e.getKeyCode() == KeyEvent.VK_D) {
+                    pause();
 
-                    isIndented = false;
+                    System.out.println();
+
+                    for(Ball[] row: fixedBalls) {
+                        System.out.println(Arrays.toString(row));
+                    }
                 }
             }
 
@@ -295,9 +301,9 @@ public class BubbleGame extends JPanel {
     private void addRow() {
         for(int c = 1; c < fixedBalls[0].length - 1; c++) {
             if(isIndented) {
-                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0, isIndented);
-            } else {
                 fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE, Ball.SIZE * 3/2), 0, 0, isIndented);
+            } else {
+                fixedBalls[1][c] = new Ball(new Point(c*Ball.SIZE + Ball.SIZE/2, Ball.SIZE * 3/2), 0, 0, isIndented);
             }
         }
 
@@ -307,6 +313,7 @@ public class BubbleGame extends JPanel {
     private void moveBall(Ball from, Ball to) {
         to.setColor(from.getColor());
         to.setShadow(from.getShadow());
+        to.setIndented(from.isIndented());
         to.setCenter(new Point.Double(from.getCenter().getX(), from.getCenter().getY() + Ball.SIZE));
 
         from = null;
@@ -378,15 +385,18 @@ public class BubbleGame extends JPanel {
                             clearWasCounted();
                         }
 
-                        for(Ball[] row: fixedBalls) {
-                            System.out.println(Arrays.toString(row));
-                        }
-
                         break outer;
                     }
                 }
             }
         }
+    }
+
+    private void pause() {
+        if(timer.isRunning())
+            timer.stop();
+        else
+            timer.start();
     }
 
     public void paintComponent(Graphics g) {
@@ -483,7 +493,6 @@ public class BubbleGame extends JPanel {
 //        }
         }
     }
-
 
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
