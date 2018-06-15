@@ -118,7 +118,11 @@ public class BubbleGame extends JPanel {
                 } else if(e.getKeyCode() == KeyEvent.VK_2) {
                     nextBall = new BouncingBall(0, 0);
                     resetNextBall();
-                } else if(e.getKeyCode() == KeyEvent.VK_R){
+                }
+                else if(e.getKeyCode() == KeyEvent.VK_I){
+                    JOptionPane.showMessageDialog(null, "press space to pause & press 1 for regular ball & press 2 for bouncing ball & press r to reset", "Controls", JOptionPane.INFORMATION_MESSAGE);
+                }
+                else if(e.getKeyCode() == KeyEvent.VK_R){
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
                     isIndented = false;
@@ -191,16 +195,22 @@ public class BubbleGame extends JPanel {
 
         wasCounted[r][c] = true;
 
-        total = countBalls(color, r-1, c-1, total);
         total = countBalls(color, r, c-1, total);
-        total = countBalls(color, r+1, c-1, total);
-
-        total = countBalls(color, r-1, c, total);
-        total = countBalls(color, r+1, c, total);
-
-        total = countBalls(color, r-1, c+1, total);
         total = countBalls(color, r, c+1, total);
-        total = countBalls(color, r+1, c+1, total);
+
+        if(fixedBalls[r][c].isIndented()) {
+            total = countBalls(color, r+1, c, total);
+            total = countBalls(color, r+1, c+1, total);
+
+            total = countBalls(color, r-1, c, total);
+            total = countBalls(color, r-1, c+1, total);
+        } else {
+            total = countBalls(color, r+1, c-1, total);
+            total = countBalls(color, r+1, c, total);
+
+            total = countBalls(color, r-1, c-1, total);
+            total = countBalls(color, r-1, c, total);
+        }
 
         return total;
     }
