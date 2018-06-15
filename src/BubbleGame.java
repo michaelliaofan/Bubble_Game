@@ -6,6 +6,7 @@ import java.awt.*;
 import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.Arrays;
 
 public class BubbleGame extends JPanel {
     public static final int WIDTH = 800;
@@ -373,6 +374,10 @@ public class BubbleGame extends JPanel {
                             }
 
                             clearWasCounted();
+                        }
+
+                        for(Ball[] row: fixedBalls) {
+                            System.out.println(Arrays.toString(row));
                         }
 
                         break outer;

@@ -119,6 +119,11 @@ public class Ball {
         }
     }
 
+    @Override
+    public String toString() {
+        return "" + isIndented;
+    }
+
     //Getters/setters - no need to change
     public Color getColor() {
         return color;
