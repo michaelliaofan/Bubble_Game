@@ -9,14 +9,14 @@ public class BouncingBall extends Ball {
         numBouncesRemaining = 3;
     }
 
-    public BouncingBall(Point center, Color color, Color shadow, double dx, double dy) {
-        super(center, color, shadow, dx, dy);
+    public BouncingBall(Point center, Color color, Color shadow, double dx, double dy, boolean isIndented) {
+        super(center, color, shadow, dx, dy, isIndented);
 
         numBouncesRemaining = 3;
     }
 
-    public BouncingBall(Point center, double dx, double dy) {
-        super(center, dx, dy);
+    public BouncingBall(Point center, double dx, double dy, boolean isIndented) {
+        super(center, dx, dy, isIndented);
 
         numBouncesRemaining = 3;
     }

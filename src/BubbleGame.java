@@ -3,17 +3,14 @@ import sun.audio.AudioStream;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
+import java.awt.event.*;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
 public class BubbleGame extends JPanel {
     public static final int WIDTH = 800;
     public static final int HEIGHT = 800;
-//
+
     private Ball[][] fixedBalls;
     private Ball nextBall;
 
@@ -47,7 +44,7 @@ public class BubbleGame extends JPanel {
             isIndented = !isIndented;
         }
 
-        nextBall = new BouncingBall(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
+        nextBall = new Ball(new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE), 0, 0);
 
         wasCounted = new boolean[fixedBalls.length][fixedBalls[0].length];
 
@@ -66,24 +63,26 @@ public class BubbleGame extends JPanel {
 
             @Override
             public void mouseReleased(MouseEvent e) {
-                if(-0.1 <= nextBall.getVelocity() && nextBall.getVelocity() <= 0.1) {
-                    Point initCenter = new Point(WIDTH/2, HEIGHT - 24 - Ball.SIZE);
+                if(timer.isRunning()) {
+                    if (-0.1 <= nextBall.getVelocity() && nextBall.getVelocity() <= 0.1) {
+                        Point initCenter = new Point(WIDTH / 2, HEIGHT - 24 - Ball.SIZE);
 
-                    double mouseX = e.getX();
-                    double mouseY = e.getY();
+                        double mouseX = e.getX();
+                        double mouseY = e.getY();
 
-                    double dx = mouseX - initCenter.x;
-                    double dy = mouseY - initCenter.y;
+                        double dx = mouseX - initCenter.x;
+                        double dy = mouseY - initCenter.y;
 
-                    double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
+                        double dxy = Math.sqrt(Math.pow(dx, 2) + Math.pow(dy, 2));
 
-                    dx *= 10;
-                    dy *= 10;
+                        dx *= 10;
+                        dy *= 10;
 
-                    dx /= dxy;
-                    dy /= dxy;
+                        dx /= dxy;
+                        dy /= dxy;
 
-                    nextBall.setVelocity(dx, dy);
+                        nextBall.setVelocity(dx, dy);
+                    }
                 }
             }
 
@@ -151,52 +150,7 @@ public class BubbleGame extends JPanel {
                     nextBall.update();
                 }
 
-                //Checks for collisions
-                outer:
-                for(int r = 0; r < fixedBalls.length ; r++) {
-                    for(int c = 0; c < fixedBalls[0].length; c++) {
-                        if(fixedBalls[r][c] != null && nextBall != null) {
-                            if(nextBall.distanceTo(fixedBalls[r][c]) <= Ball.SIZE) {
-                                //Bouncing ball
-                                if(nextBall instanceof BouncingBall) {
-                                    fixedBalls[r][c] = null;
-
-                                    ((BouncingBall) nextBall).bounce();
-
-                                    if(((BouncingBall) nextBall).getNumBouncesRemaining() <= 0) {
-                                        ((BouncingBall) nextBall).setNumBouncesRemaining(3);
-                                        resetNextBall();
-                                    }
-                                }
-
-                                //Normal ball
-                                else {
-                                    int r1 = (int)(nextBall.getCenter().getY()/Ball.SIZE);
-                                    int c1 = (int)(nextBall.getCenter().getX()/Ball.SIZE);
-
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0);
-
-                                    resetNextBall();
-
-                                    if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
-                                        removeBalls();
-                                    }
-
-                                    clearWasCounted();
-
-                                    shotsUntilShift--;
-
-                                    if(shotsUntilShift == 0) {
-                                        shotsUntilShift = 5;
-                                        shiftBalls();
-                                    }
-
-                                    break outer;
-                                }
-                            }
-                        }
-                    }
-                }
+                handleCollisions();
 
                 timeUntilShift -= 10;
 
@@ -273,7 +227,8 @@ public class BubbleGame extends JPanel {
                         AudioStream audioStream = new AudioStream(in);
 
                         AudioPlayer.player.start(audioStream);
-                    }catch(Exception e){
+
+                    } catch(Exception e){
                         e.printStackTrace();
                         System.out.println("Error loading sound file.");
                     }
@@ -493,7 +448,7 @@ public class BubbleGame extends JPanel {
 //        }
         }
     }
-    //Main - no need to change
+
     public static void main(String[] args) {
         JFrame frame = new JFrame("Bubble Game!");
         frame.setDefaultCloseOperation(frame.EXIT_ON_CLOSE);

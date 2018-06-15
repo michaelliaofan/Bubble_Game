@@ -4,10 +4,13 @@ public class Ball {
     public static final int SIZE = 50;
 
     private Point.Double center;
+
+    protected double dx, dy;
+
     private Color color;
     private Color shadow;
 
-    protected double dx, dy;
+    private boolean isIndented;
 
     public Ball(int r, int c) {
         this.center = new Point.Double(c*Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2);
@@ -17,9 +20,10 @@ public class Ball {
 
         this.color = new Color(0, 0, 0);
 
+        this.isIndented = false;
     }
 
-    public Ball(Point center, Color color, Color shadow, double dx, double dy) {
+    public Ball(Point center, Color color, Color shadow, double dx, double dy, boolean isIndented) {
         this.center = new Point.Double(center.x, center.y);
 
         this.dx = dx;
@@ -27,15 +31,19 @@ public class Ball {
 
         this.color = color;
         this.shadow = shadow;
+
+        this.isIndented = isIndented;
     }
 
-    public Ball(Point center, double dx, double dy) {
+    public Ball(Point center, double dx, double dy, boolean isIndented) {
         this.center = new Point.Double(center.x, center.y);
 
         this.dx = dx;
         this.dy = dy;
 
         randomizeColor();
+
+        this.isIndented = isIndented;
     }
 
     public void draw(Graphics2D g2) {
@@ -111,6 +119,11 @@ public class Ball {
         }
     }
 
+    @Override
+    public String toString() {
+        return "" + isIndented;
+    }
+
     //Getters/setters - no need to change
     public Color getColor() {
         return color;
@@ -136,5 +149,8 @@ public class Ball {
     public void setVelocity(double dx, double dy) {
         this.dx = dx;
         this.dy = dy;
+    }
+    public boolean isIndented() {
+        return isIndented;
     }
 }
