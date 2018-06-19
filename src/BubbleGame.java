@@ -367,7 +367,7 @@ public class BubbleGame extends JPanel {
                             fixedBalls[r][c] = null;
 
                             if(((BouncingBall) nextBall).getNumBouncesRemaining() <= 0) {
-                                ((BouncingBall) nextBall).setNumBouncesRemaining(3);
+                                ((BouncingBall) nextBall).setNumBouncesRemaining(8);
                                 resetNextBall();
                             }
                         }

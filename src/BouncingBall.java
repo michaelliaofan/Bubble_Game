@@ -6,19 +6,19 @@ public class BouncingBall extends Ball {
     public BouncingBall(int r, int c) {
         super(r, c);
 
-        numBouncesRemaining = 3;
+        numBouncesRemaining = 8;
     }
 
     public BouncingBall(Point center, Color color, Color shadow, double dx, double dy, boolean isIndented) {
         super(center, color, shadow, dx, dy, isIndented);
 
-        numBouncesRemaining = 3;
+        numBouncesRemaining = 8;
     }
 
     public BouncingBall(Point center, double dx, double dy, boolean isIndented) {
         super(center, dx, dy, isIndented);
 
-        numBouncesRemaining = 3;
+        numBouncesRemaining = 8;
     }
 
     public void bounce(Point.Double otherCent) {
