@@ -1,6 +1,9 @@
 import sun.audio.AudioPlayer;
 import sun.audio.AudioStream;
 import javax.swing.JOptionPane;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
 
 import javax.swing.*;
 import java.awt.*;
