@@ -57,7 +57,7 @@ public class BubbleGame extends JPanel {
         didLose = false;
         didWin = false;
 
-        timeUntilShift = 3000;
+        timeUntilShift = 10000;
 
         addMouseListener(new MouseListener() {
             @Override
@@ -152,7 +152,7 @@ public class BubbleGame extends JPanel {
                     didLose = false;
                     didWin = false;
 
-                    timeUntilShift = 3000;
+                    timeUntilShift = 10000;
                 } else if(e.getKeyCode() == KeyEvent.VK_D) {
                     pause();
 
@@ -182,7 +182,7 @@ public class BubbleGame extends JPanel {
                 timeUntilShift -= 10;
 
                 if(timeUntilShift <= 0) {
-                    timeUntilShift = 3000;
+                    timeUntilShift = 10000;
                     shiftBalls();
                 }
 
@@ -374,26 +374,54 @@ public class BubbleGame extends JPanel {
 
                         //Normal ball
                         else {
-                            int r1 = (int)(nextBall.getCenter().getY()/Ball.SIZE);
-                            int c1 = (int)(nextBall.getCenter().getX()/Ball.SIZE);
+                            int rSnap = (int)(nextBall.getCenter().getY()/Ball.SIZE);
+                            int cSnap = (int)(nextBall.getCenter().getX()/Ball.SIZE);
 
                             if(fixedBalls[r][c].isIndented()) {
-                                if(r1 == r) {
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+                                //Snapping method
+                                if(rSnap == r) {
+                                    fixedBalls[rSnap][cSnap] = new Ball(new Point(cSnap*Ball.SIZE + Ball.SIZE, rSnap*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
                                 } else {
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
+                                    fixedBalls[rSnap][cSnap] = new Ball(new Point(cSnap*Ball.SIZE + Ball.SIZE/2, rSnap*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
                                 }
                             } else {
-                                if(r1 == r) {
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE/2, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
+//                                //Calculation method
+//                                double dx = nextBall.getCenter().getX() - fixedBalls[r][c].getCenter().getX();
+//                                double dy = nextBall.getCenter().getY() - fixedBalls[r][c].getCenter().getY();
+//
+//                                int r1, c1;
+//                                boolean indent;
+//
+//                                if(dx >= Math.sqrt(3)/2) {
+//                                    //Pos 1
+//                                    fixedBalls[r][c+1] = new Ball(new Point((c+1) * Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
+//                                } else if(0 <= dx && dx <= Math.sqrt(3)/2 && dy >= 0) {
+//                                    //Pos 2
+//                                    fixedBalls[r-1][c] = new Ball(new Point(c * Ball.SIZE + Ball.SIZE, (r-1) * Ball.SIZE + Ball.SIZE), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+//                                } else if(-Math.sqrt(3)/2 <= dx && dx <= 0 && dy >= 0) {
+//                                    //Pos 3
+//                                    fixedBalls[r-1][c-1] = new Ball(new Point((c-1) * Ball.SIZE + Ball.SIZE, (r-1) * Ball.SIZE + Ball.SIZE), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+//                                } else if(dx <= -Math.sqrt(3)/2) {
+//                                    //Pos 4
+//                                    fixedBalls[r][c-1] = new Ball(new Point((c-1) * Ball.SIZE + Ball.SIZE/2, r*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
+//                                } else if(dx >= -Math.sqrt(3)/2 && dx <= 0 && dy <= 0) {
+//                                    //Pos 5
+//                                    fixedBalls[r+1][c-1] = new Ball(new Point((c-1) * Ball.SIZE + Ball.SIZE, (r+1) * Ball.SIZE + Ball.SIZE), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+//                                } else if(0 <= dx && dx <= Math.sqrt(3)/2 && dy <= 0) {
+//                                    //Pos 6
+//                                    fixedBalls[r+1][c] = new Ball(new Point(c * Ball.SIZE + Ball.SIZE, (r+1) * Ball.SIZE + Ball.SIZE), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+//                                }
+
+                                if(rSnap == r) {
+                                    fixedBalls[rSnap][cSnap] = new Ball(new Point(cSnap*Ball.SIZE + Ball.SIZE/2, rSnap*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, false);
                                 } else {
-                                    fixedBalls[r1][c1] = new Ball(new Point(c1*Ball.SIZE + Ball.SIZE, r1*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
+                                    fixedBalls[rSnap][cSnap] = new Ball(new Point(cSnap*Ball.SIZE + Ball.SIZE, rSnap*Ball.SIZE + Ball.SIZE/2), nextBall.getColor(), nextBall.getShadow(), 0, 0, true);
                                 }
                             }
 
                             resetNextBall();
 
-                            if(countBalls(fixedBalls[r1][c1].getColor(), r1, c1) > 2) {
+                            if(countBalls(fixedBalls[rSnap][cSnap].getColor(), rSnap, cSnap) > 2) {
                                 removeBalls();
                                 points++;
                             }

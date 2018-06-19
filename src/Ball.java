@@ -121,7 +121,7 @@ public class Ball {
 
     @Override
     public String toString() {
-        return "ind: " + isIndented + "; " + center;
+        return "" + isIndented + "; [" + center.getX() + ", " + center.getY() + "]";
     }
 
     //Getters/setters - no need to change
