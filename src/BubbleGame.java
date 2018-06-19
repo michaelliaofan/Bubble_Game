@@ -120,8 +120,11 @@ public class BubbleGame extends JPanel {
                     resetNextBall();
                 }
                 else if(e.getKeyCode() == KeyEvent.VK_I){
+                    pause();
                     JOptionPane.showMessageDialog(null, "press space to pause & press 1 for regular ball & press 2 for bouncing ball & press r to reset", "Controls", JOptionPane.INFORMATION_MESSAGE);
+                    run();
                 }
+
                 else if(e.getKeyCode() == KeyEvent.VK_R){
                     fixedBalls = new Ball[HEIGHT / Ball.SIZE][HEIGHT / Ball.SIZE];
 
@@ -407,6 +410,10 @@ public class BubbleGame extends JPanel {
             timer.stop();
         else
             timer.start();
+    }
+
+    private void run(){
+        timer.start();
     }
 
     public void paintComponent(Graphics g) {
