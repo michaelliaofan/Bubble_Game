@@ -453,6 +453,7 @@ public class BubbleGame extends JPanel {
         Font zeefont = new Font("Impact", Font.BOLD, 19);
         g2.setFont(zeefont);
         g2.drawString("For controls", 840, 360);
+        g2.drawString("Pop all the balls!", 840, 400);
 
         g2.setStroke(new BasicStroke(8));
         g2.drawRect(825, 217, 168, 1);
