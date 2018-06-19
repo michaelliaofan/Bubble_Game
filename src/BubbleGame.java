@@ -528,5 +528,15 @@ public class BubbleGame extends JPanel {
         frame.add(panel);
         frame.pack();
         frame.setVisible(true);
+        try {
+            InputStream in = new FileInputStream("Sounds/Vice Vice Baby.wav");
+            AudioStream audioStream = new AudioStream(in);
+            AudioPlayer.player.start(audioStream);
+        }
+        catch(Exception e){
+            e.printStackTrace();
+            System.out.println("Error loading sound file.");
+           }
+
     }
 }
