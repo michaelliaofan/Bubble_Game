@@ -449,7 +449,8 @@ public class BubbleGame extends JPanel {
         Font thefont = new Font("Impact", Font.BOLD, 25);
         g2.setFont(thefont);
         g2.drawString("Points : " + points, 840, 260);
-        g2.drawString("Press I", 840, 330);
+        g2.drawString("Press i", 840, 330);
+        g2.drawString("For instructions", 840, 360);
 
         g2.setStroke(new BasicStroke(8));
         g2.drawRect(825, 217, 168, 1);
